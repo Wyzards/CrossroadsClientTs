@@ -1,15 +1,43 @@
 export interface Project {
-    id: number;
+    id: string;
+    channel_id?: string;
+    guild_id?: string;
+    emoji?: string;
     name: string;
+    display_name?: string;
+    status?: string;
     description?: string;
-    createdAt: string;
-    updatedAt: string;
+    ip?: string;
+    role_id?: string;
+    type?: string;
+    created_at: string;
+    updated_at: string;
 }
-
 export interface CreateProjectPayload {
     name: string;
+    // whatever other required fields for creation
+    channel_id?: string;
+    guild_id?: string;
+    emoji?: string;
+    display_name?: string;
+    status?: string;
     description?: string;
-    // TODO: Going to require an update payload for setting role, channel id, etc.
+    ip?: string;
+    role_id?: string;
+    type?: string;
+}
+
+export interface UpdateProjectPayload {
+    channel_id?: string;
+    guild_id?: string;
+    emoji?: string;
+    name?: string; // optional here, Laravel will validate if present
+    display_name?: string;
+    status?: string;
+    description?: string;
+    ip?: string;
+    role_id?: string;
+    type?: string;
 }
 
 export interface ProjectStaff {

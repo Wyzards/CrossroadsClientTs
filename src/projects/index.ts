@@ -5,6 +5,7 @@ import {
     ProjectStaff,
     ProjectAttachment,
     ProjectLink,
+    UpdateProjectPayload,
 } from "./types";
 
 export class ProjectsApi {
@@ -22,7 +23,7 @@ export class ProjectsApi {
         return this.http.get<Project>(`/projects/${id}`);
     }
 
-    update(id: number, payload: Partial<CreateProjectPayload>) {
+    update(id: number, payload: UpdateProjectPayload) {
         return this.http.put<Project>(`/projects/${id}`, payload);
     }
 
