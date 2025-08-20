@@ -1,5 +1,5 @@
 import axios, { type AxiosInstance } from 'axios';
-import { ApiError, NotFoundError, UnauthorizedError, ValidationError } from './error.js';
+import { ApiError, NotFoundError, UnauthorizedError, ValidationError } from './error';
 
 export interface HttpRequestOptions {
     method: "GET" | "POST" | "PUT" | "DELETE";
@@ -16,27 +16,30 @@ export interface HttpResponse<T> {
 export class HttpClient {
     private axios: AxiosInstance;
 
-    constructor(baseURL: string, token: string) {
-        this.axios = axios.create({ baseURL });
+    constructor(baseURL: string, token: string, axiosInstance?: AxiosInstance) {
+        this.axios = axiosInstance ?? axios.create({
+            baseURL,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
 
-        this.axios.interceptors.request.use(config => {
-            config.headers.Authorization = `Bearer ${token}`;
-            return config;
-        }); // May only work if included in the create? idk!
-
-        this.axios.interceptors.response.use(
-            res => res,
-            err => {
-                const status = err.response?.status;
-                const data = err.response?.data;
-                switch (status) {
-                    case 401: throw new UnauthorizedError(data);
-                    case 404: throw new NotFoundError(data);
-                    case 422: throw new ValidationError(data);
-                    default: throw new ApiError(status ?? 500, err.message, data);
+        if (!axiosInstance) {
+            this.axios.interceptors.response.use(
+                res => res,
+                err => {
+                    const status = err.response?.status;
+                    const data = err.response?.data;
+                    switch (status) {
+                        case 401: throw new UnauthorizedError(data);
+                        case 404: throw new NotFoundError(data);
+                        case 422: throw new ValidationError(data);
+                        default: throw new ApiError(status ?? 500, err.message, data);
+                    }
                 }
-            }
-        );
+            );
+        }
     }
 
     get instance() {
