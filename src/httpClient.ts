@@ -1,6 +1,18 @@
 import axios, { type AxiosInstance } from 'axios';
 import { ApiError, NotFoundError, UnauthorizedError, ValidationError } from './error';
 
+export function createMockAxios(): jest.Mocked<AxiosInstance> {
+    return {
+        get: jest.fn(),
+        post: jest.fn(),
+        put: jest.fn(),
+        delete: jest.fn(),
+        request: jest.fn(),
+        // Include interceptors if your code uses them
+        interceptors: { request: { use: jest.fn(), eject: jest.fn() }, response: { use: jest.fn(), eject: jest.fn() } },
+    } as any;
+}
+
 export interface HttpRequestOptions {
     method: "GET" | "POST" | "PUT" | "DELETE";
     url: string;
