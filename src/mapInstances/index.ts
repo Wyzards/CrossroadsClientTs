@@ -1,10 +1,10 @@
-import { AxiosInstance } from "axios";
-import { MapInstance, CreateMapInstancePayload, SecondaryUser } from "./types";
+import { HttpClient } from "../httpClient.js";
+import { CreateMapInstancePayload, MapInstance, SecondaryUser } from "./types";
 
 export class MapInstancesApi {
-    constructor(private http: AxiosInstance) { }
+    constructor(private http: HttpClient) { }
 
-    listForUser(userId: number) {
+    async listForUser(userId: number) {
         return this.http.get<MapInstance[]>(`/map-instances/user/${userId}`);
     }
 

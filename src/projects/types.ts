@@ -48,8 +48,7 @@ export interface ProjectStaff {
 
 export interface ProjectAttachment {
     id: number;
-    url: string;
-    description?: string;
+    path: string;
 }
 
 export interface ProjectLink {

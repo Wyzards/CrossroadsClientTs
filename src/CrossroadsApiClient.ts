@@ -1,9 +1,8 @@
-import { AxiosInstance } from "axios";
-import { createHttpClient } from "./httpClient";
-import { MapsApi } from "./maps";
+import { HttpClient } from "./httpClient";
 import { MapInstancesApi } from "./mapInstances";
-import { UsersApi } from "./users";
+import { MapsApi } from "./maps";
 import { ProjectsApi } from "./projects";
+import { UsersApi } from "./users";
 
 export class CrossroadsApiClient {
     public maps: MapsApi;
@@ -12,7 +11,7 @@ export class CrossroadsApiClient {
     public projects: ProjectsApi;
 
     constructor(baseURL: string, token: string) {
-        const http: AxiosInstance = createHttpClient(baseURL, token);
+        const http: HttpClient = new HttpClient(baseURL, token);
 
         this.maps = new MapsApi(http);
         this.mapInstances = new MapInstancesApi(http);

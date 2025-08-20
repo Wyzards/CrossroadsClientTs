@@ -1,72 +1,73 @@
-import { AxiosInstance } from "axios";
+import { HttpClient } from "../httpClient.js";
 import {
-    Project,
     CreateProjectPayload,
-    ProjectStaff,
+    Project,
     ProjectAttachment,
     ProjectLink,
+    ProjectStaff,
     UpdateProjectPayload,
 } from "./types";
 
 export class ProjectsApi {
-    constructor(private http: AxiosInstance) { }
+    constructor(private http: HttpClient) { }
 
-    list() {
-        return this.http.get<Project[]>(`/projects`);
+    // Projects
+    list(): Promise<Project[]> {
+        return this.http.get<Project[]>("/projects");
     }
 
-    create(payload: CreateProjectPayload) {
-        return this.http.post<Project>(`/projects`, payload);
+    create(project: CreateProjectPayload): Promise<Project> {
+        return this.http.post<Project>("/projects", project);
     }
 
-    get(id: number) {
+    get(id: number): Promise<Project> {
         return this.http.get<Project>(`/projects/${id}`);
     }
 
-    update(id: number, payload: UpdateProjectPayload) {
+    update(id: number, payload: UpdateProjectPayload): Promise<Project> {
         return this.http.put<Project>(`/projects/${id}`, payload);
     }
 
-    delete(id: number) {
+    delete(id: number): Promise<boolean> {
         return this.http.delete(`/projects/${id}`);
     }
 
     // Staff
-    listStaff(projectId: number) {
+    listStaff(projectId: number): Promise<ProjectStaff[]> {
         return this.http.get<ProjectStaff[]>(`/projects/${projectId}/staff`);
     }
 
-    addStaff(projectId: number, userId: number, role: string) {
-        return this.http.post(`/projects/${projectId}/staff`, { userId, role });
+    addStaff(projectId: number, userId: number, role: string): Promise<ProjectStaff> {
+        return this.http.post<ProjectStaff>(`/projects/${projectId}/staff`, { userId, role });
     }
 
-    removeStaff(projectId: number, userId: number) {
+    removeStaff(projectId: number, userId: number): Promise<boolean> {
         return this.http.delete(`/projects/${projectId}/staff/${userId}`);
     }
 
     // Attachments
-    listAttachments(projectId: number) {
+    listAttachments(projectId: number): Promise<ProjectAttachment[]> {
         return this.http.get<ProjectAttachment[]>(`/projects/${projectId}/attachments`);
     }
 
-    addAttachment(projectId: number, attachment: Omit<ProjectAttachment, "id">) {
-        return this.http.post(`/projects/${projectId}/attachments`, attachment);
+    addAttachment(projectId: number, attachment: Omit<ProjectAttachment, "id">): Promise<ProjectAttachment> {
+        return this.http.post<ProjectAttachment>(`/projects/${projectId}/attachments`, attachment);
     }
 
-    removeAttachment(projectId: number, attachmentId: number) {
+    removeAttachment(projectId: number, attachmentId: number): Promise<boolean> {
         return this.http.delete(`/projects/${projectId}/attachments/${attachmentId}`);
     }
 
     // Links
-    listLinks(projectId: number) {
+    listLinks(projectId: number): Promise<ProjectLink[]> {
         return this.http.get<ProjectLink[]>(`/projects/${projectId}/links`);
     }
 
-    addLink(projectId: number, link: Omit<ProjectLink, "id">) {
-        return this.http.post(`/projects/${projectId}/links`, link);
+    addLink(projectId: number, link: Omit<ProjectLink, "id">): Promise<ProjectLink> {
+        return this.http.post<ProjectLink>(`/projects/${projectId}/links`, link);
     }
 
-    removeLink(projectId: number, linkId: number) {
+    removeLink(projectId: number, linkId: number): Promise<boolean> {
         return this.http.delete(`/projects/${projectId}/links/${linkId}`);
     }
 }

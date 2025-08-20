@@ -1,8 +1,8 @@
-import { AxiosInstance } from "axios";
+import { HttpClient } from "../httpClient.js";
 import { CrossroadsUser, CreateCrossroadsUserPayload } from "./types";
 
 export class UsersApi {
-    constructor(private http: AxiosInstance) { }
+    constructor(private http: HttpClient) { }
 
     create(payload: CreateCrossroadsUserPayload) {
         return this.http.post<CrossroadsUser>(`/crossroads-users`, payload);

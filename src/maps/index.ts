@@ -1,8 +1,8 @@
-import { AxiosInstance } from "axios";
+import { HttpClient } from "../httpClient.js";
 import { Map, CreateMapPayload } from "./types";
 
 export class MapsApi {
-    constructor(private http: AxiosInstance) { }
+    constructor(private http: HttpClient) { }
 
     getByImageName(imageName: string) {
         return this.http.get<Map>(`/maps/by-image-name/${imageName}`);
