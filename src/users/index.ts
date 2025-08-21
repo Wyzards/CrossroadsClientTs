@@ -1,7 +1,7 @@
 import { HttpClient } from "../httpClient.js";
 import { CrossroadsUser, CreateCrossroadsUserPayload } from "./types";
 
-export class UsersApi {
+export class CrossroadsUsersApi {
     constructor(private http: HttpClient) { }
 
     create(payload: CreateCrossroadsUserPayload) {

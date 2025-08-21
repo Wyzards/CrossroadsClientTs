@@ -2,12 +2,12 @@ import { HttpClient } from "./httpClient";
 import { MapInstancesApi } from "./mapInstances";
 import { MapsApi } from "./maps";
 import { ProjectsApi } from "./projects";
-import { UsersApi } from "./users";
+import { CrossroadsUsersApi } from "./users";
 
 export class CrossroadsApiClient {
     public maps: MapsApi;
     public mapInstances: MapInstancesApi;
-    public users: UsersApi;
+    public users: CrossroadsUsersApi;
     public projects: ProjectsApi;
 
     constructor(baseURL: string, token: string) {
@@ -15,7 +15,7 @@ export class CrossroadsApiClient {
 
         this.maps = new MapsApi(http);
         this.mapInstances = new MapInstancesApi(http);
-        this.users = new UsersApi(http);
+        this.users = new CrossroadsUsersApi(http);
         this.projects = new ProjectsApi(http);
     }
 }

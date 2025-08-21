@@ -1,5 +1,6 @@
 import { HttpClient } from "../httpClient.js";
-import { CreateMapInstancePayload, MapInstance, SecondaryUser } from "./types";
+import { CrossroadsUser } from "../users/types.js";
+import { CreateMapInstancePayload, MapInstance } from "./types";
 
 export class MapInstancesApi {
     constructor(private http: HttpClient) { }
@@ -13,7 +14,7 @@ export class MapInstancesApi {
     }
 
     getSecondaryUsers(instanceId: number) {
-        return this.http.get<SecondaryUser[]>(`/map-instances/${instanceId}/secondary-users`);
+        return this.http.get<CrossroadsUser[]>(`/map-instances/${instanceId}/secondary-users`);
     }
 
     addSecondaryUser(instanceId: number, userId: number) {

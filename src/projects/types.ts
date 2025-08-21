@@ -1,5 +1,5 @@
 export interface Project {
-    id: string;
+    id: number;
     channel_id?: string;
     guild_id?: string;
     emoji?: string;
@@ -10,9 +10,8 @@ export interface Project {
     ip?: string;
     role_id?: string;
     type?: string;
-    created_at: string;
-    updated_at: string;
 }
+
 export interface CreateProjectPayload {
     name: string;
     // whatever other required fields for creation
