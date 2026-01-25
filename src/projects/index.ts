@@ -20,8 +20,12 @@ export class ProjectsApi {
         return this.http.post<Project>("/projects", project);
     }
 
-    get(id: number): Promise<Project> {
+    getById(id: number): Promise<Project> {
         return this.http.get<Project>(`/projects/${id}`);
+    }
+    
+    getByName(name: string): Promise<Project> {
+        return this.http.get<Project>(`/projects/by-name/${name}`);
     }
 
     update(id: number, payload: UpdateProjectPayload): Promise<Project> {

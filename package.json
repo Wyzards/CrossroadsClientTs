@@ -1,6 +1,6 @@
 {
-	"name": "@Wyzards/crossroadsclientts",
-	"version": "1.0.0",
+	"name": "@wyzards/crossroadsclientts",
+	"version": "1.0.2",
 	"main": "dist/index.js",
 	"types": "dist/index.js",
 	"scripts": {
