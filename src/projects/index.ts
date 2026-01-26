@@ -23,9 +23,21 @@ export class ProjectsApi {
     getById(id: number): Promise<Project> {
         return this.http.get<Project>(`/projects/${id}`);
     }
-    
+
     getByName(name: string): Promise<Project> {
         return this.http.get<Project>(`/projects/by-name/${name}`);
+    }
+
+    getByGuild(name: string): Promise<Project> {
+        return this.http.get<Project>(`/projects/by-guild/${name}`);
+    }
+
+    existsByName(name: string): Promise<{ exists: boolean }> {
+        return this.http.get<{ exists: boolean }>(`/projects/exists/by-name/${name}`);
+    }
+
+    existsByGuild(guildId: string): Promise<{ exists: boolean }> {
+        return this.http.get<{ exists: boolean }>(`/projects/exists/by-guild/${guildId}`);
     }
 
     update(id: number, payload: UpdateProjectPayload): Promise<Project> {
