@@ -29,9 +29,8 @@ export class HttpClient {
     private axios: AxiosInstance;
 
     constructor(baseURL: string, token: string, axiosInstance?: AxiosInstance) {
-        const url = "/api/" + baseURL;
         this.axios = axiosInstance ?? axios.create({
-            url,
+            baseURL,
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
