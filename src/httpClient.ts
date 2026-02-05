@@ -30,6 +30,8 @@ export class HttpClient {
 
     constructor(baseURL: string, token: string, axiosInstance?: AxiosInstance) {
         this.axios = axiosInstance ?? axios.create({
+            // baseURL specified in implementing config
+            // ex: http://127.0.0.1:8000/api/
             baseURL,
             headers: {
                 'Authorization': `Bearer ${token}`,
