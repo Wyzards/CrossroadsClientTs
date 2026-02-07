@@ -42,7 +42,12 @@ export interface UpdateProjectPayload {
 export interface ProjectStaff {
     id: number;
     userId: number;
-    role: string;
+    rank: number;
+}
+
+export enum ProjectStaffRank {
+    LEAD = "lead",
+    STAFF = "staff"
 }
 
 export interface ProjectAttachment {
