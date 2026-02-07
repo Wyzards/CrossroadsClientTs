@@ -1,3 +1,5 @@
+import axios from "axios";
+
 // errors.ts
 export class ApiError extends Error {
     status: number;

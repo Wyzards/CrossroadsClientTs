@@ -1,3 +1,4 @@
+import { NotFoundError } from "../error.js";
 import { HttpClient } from "../httpClient.js";
 import {
     CreateProjectPayload,
@@ -20,16 +21,31 @@ export class ProjectsApi {
         return this.http.post<Project>("/projects", project);
     }
 
-    getById(id: number): Promise<Project> {
-        return this.http.get<Project>(`/projects/${id}`);
+    async getById(id: number): Promise<Project | null> {
+        try {
+            return await this.http.get<Project>(`/projects/${id}`);
+        } catch (err) {
+            if (err instanceof NotFoundError) return null;
+            throw err;
+        }
     }
 
-    getByName(name: string): Promise<Project> {
-        return this.http.get<Project>(`/projects/by-name/${name}`);
+    async getByName(name: string): Promise<Project | null> {
+        try {
+            return await this.http.get<Project>(`/projects/by-name/${name}`);
+        } catch (err) {
+            if (err instanceof NotFoundError) return null;
+            throw err;
+        }
     }
 
-    getByGuild(name: string): Promise<Project> {
-        return this.http.get<Project>(`/projects/by-guild/${name}`);
+    async getByGuild(name: string): Promise<Project | null> {
+        try {
+            return await this.http.get<Project>(`/projects/by-guild/${name}`);
+        } catch (err) {
+            if (err instanceof NotFoundError) return null;
+            throw err;
+        }
     }
 
     existsByName(name: string): Promise<{ exists: boolean }> {
@@ -86,4 +102,5 @@ export class ProjectsApi {
     removeLink(projectId: number, linkId: number): Promise<boolean> {
         return this.http.delete(`/projects/${projectId}/links/${linkId}`);
     }
+
 }

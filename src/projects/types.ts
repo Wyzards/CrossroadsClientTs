@@ -55,3 +55,60 @@ export interface ProjectLink {
     url: string;
     label: string;
 }
+
+export enum ProjectStatus {
+    PLAYABLE = "playable",
+    IN_DEVELOPMENT = "in_development",
+    ARCHIVED = "archived",
+    HIDDEN = "hidden",
+}
+
+export class ProjectStatusHelper {
+    static pretty(status: ProjectStatus): string {
+        switch (status) {
+            case ProjectStatus.PLAYABLE: return "Playable";
+            case ProjectStatus.IN_DEVELOPMENT: return "In Development";
+            case ProjectStatus.ARCHIVED: return "Archived";
+            case ProjectStatus.HIDDEN: return "Hidden";
+        }
+    }
+
+    static values(): ProjectStatus[] {
+        return [
+            ProjectStatus.PLAYABLE,
+            ProjectStatus.IN_DEVELOPMENT,
+            ProjectStatus.ARCHIVED,
+            ProjectStatus.HIDDEN,
+        ];
+    }
+}
+
+export enum ProjectType {
+    MMO = "mmo",
+    SMP = "smp",
+    MAP = "map",
+    RPG = "rpg",
+    OTHER = "other"
+}
+
+export class ProjectTypeHelper {
+    static pretty(status: ProjectType): string {
+        switch (status) {
+            case ProjectType.MMO: return "MMO";
+            case ProjectType.SMP: return "SMP";
+            case ProjectType.MAP: return "Map";
+            case ProjectType.RPG: return "RPG";
+            case ProjectType.OTHER: return "Other";
+        }
+    }
+
+    static values(): ProjectType[] {
+        return [
+            ProjectType.MMO,
+            ProjectType.SMP,
+            ProjectType.RPG,
+            ProjectType.MAP,
+            ProjectType.OTHER
+        ];
+    }
+}
