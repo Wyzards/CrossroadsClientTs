@@ -50,6 +50,22 @@ export enum ProjectStaffRank {
     STAFF = "staff"
 }
 
+export class ProjectStaffRankHelper {
+    static pretty(rank: ProjectStaffRank): string {
+        switch (rank) {
+            case ProjectStaffRank.LEAD: return "Lead";
+            case ProjectStaffRank.STAFF: return "Staff";
+        }
+    }
+
+    static values(): ProjectStaffRank[] {
+        return [
+            ProjectStaffRank.LEAD,
+            ProjectStaffRank.STAFF,
+        ];
+    }
+}
+
 export interface ProjectAttachment {
     id: number;
     path: string;
