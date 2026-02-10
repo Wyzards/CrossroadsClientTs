@@ -8,6 +8,7 @@ import {
     ProjectStaff,
     UpdateProjectPayload,
 } from "./types";
+import FormData from "form-data";
 
 export class ProjectsApi {
     constructor(private http: HttpClient) { }
@@ -78,8 +79,18 @@ export class ProjectsApi {
     }
 
     // Attachments
-    addAttachment(projectId: number, attachment: Omit<ProjectAttachment, "id">): Promise<ProjectAttachment> {
-        return this.http.post<ProjectAttachment>(`/projects/${projectId}/attachments`, attachment);
+    addAttachment(projectId: number, file: Buffer | NodeJS.ReadableStream, filename: string): Promise<ProjectAttachment> {
+        const form = new FormData();
+        form.append("file", file, filename);
+
+        return this.http.post<ProjectAttachment>(`/projects/${projectId}/attachments`, form, { headers: form.getHeaders() });
+    }
+
+    downloadAllAttachments(projectId: number): Promise<Buffer> {
+        return this.http.get<ArrayBuffer>(
+            `/projects/${projectId}/attachments/download`,
+            { responseType: "arraybuffer" }
+        ).then(data => Buffer.from(data));
     }
 
     removeAttachment(projectId: number, attachmentId: number): Promise<boolean> {

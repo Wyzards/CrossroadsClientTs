@@ -61,13 +61,13 @@ export class HttpClient {
     }
 
 
-    async get<T = any>(url: string) {
-        const res = await this.axios.get<T>(url);
+    async get<T = any>(url: string, config?: any) {
+        const res = await this.axios.get<T>(url, config);
         return res.data;
     }
 
-    async post<T = any>(url: string, body: any) {
-        const res = await this.axios.post<T>(url, body);
+    async post<T = any>(url: string, body: any, config?: any) {
+        const res = await this.axios.post<T>(url, body, config);
         return res.data;
     }
 
