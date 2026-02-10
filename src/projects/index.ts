@@ -78,10 +78,6 @@ export class ProjectsApi {
     }
 
     // Attachments
-    listAttachments(projectId: number): Promise<ProjectAttachment[]> {
-        return this.http.get<ProjectAttachment[]>(`/projects/${projectId}/attachments`);
-    }
-
     addAttachment(projectId: number, attachment: Omit<ProjectAttachment, "id">): Promise<ProjectAttachment> {
         return this.http.post<ProjectAttachment>(`/projects/${projectId}/attachments`, attachment);
     }
