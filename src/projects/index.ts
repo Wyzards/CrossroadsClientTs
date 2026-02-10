@@ -79,9 +79,9 @@ export class ProjectsApi {
     }
 
     // Attachments
-    addAttachment(projectId: number, file: Buffer | NodeJS.ReadableStream, filename: string): Promise<ProjectAttachment> {
+    setAttachments(projectId: number, files: Buffer[]): Promise<ProjectAttachment> {
         const form = new FormData();
-        form.append("file", file, filename);
+        files.forEach((file, i) => form.append(`files[${i}]`, file, `attachment-${i}`));
 
         return this.http.post<ProjectAttachment>(`/projects/${projectId}/attachments`, form, { headers: form.getHeaders() });
     }
