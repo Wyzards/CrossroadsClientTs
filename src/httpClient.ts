@@ -35,7 +35,6 @@ export class HttpClient {
             baseURL,
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
             },
         });
 
@@ -67,7 +66,14 @@ export class HttpClient {
     }
 
     async post<T = any>(url: string, body: any, config?: any) {
-        const res = await this.axios.post<T>(url, body, config);
+        const res = await this.axios.post<T>(url, body, {
+            ...config,
+            headers: {
+                ...config?.headers,
+                ...body.getHeaders?.(),
+            },
+            maxBodyLength: Infinity,
+        });
         return res.data;
     }
 
