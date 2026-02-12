@@ -85,9 +85,15 @@ export class ProjectsApi {
         const form = new FormData();
 
         // Append each file directly
-        files.forEach((buffer, i) => {
-            form.append('files[]', buffer, `attachment-${i}`);
-        });
+        for (let i = 0; i < files.length; i++) {
+            const buffer = files[i]!;
+            const type = await fileTypeFromBuffer(buffer);
+
+            form.append('files[]', buffer, {
+                filename: `attachment-${i}.${type?.ext || 'bin'}`,
+                contentType: type?.mime || 'application/octet-stream',
+            });
+        }
 
         // Even if files is empty, Laravel will get an empty form and delete attachments
         return this.http.post<any[]>(
