@@ -1,6 +1,6 @@
 {
 	"name": "@wyzards/crossroadsclientts",
-	"version": "1.0.17",
+	"version": "1.0.18",
 	"main": "dist/index.js",
 	"types": "dist/index.js",
 	"scripts": {
@@ -26,6 +26,7 @@
 		"@types/jest": "^30.0.0",
 		"@types/node": "^24.10.13",
 		"@types/supertest": "^6.0.3",
+		"file-type": "^21.3.0",
 		"jest": "^30.0.5",
 		"jest-mock-axios": "^4.8.0",
 		"supertest": "^7.1.4",

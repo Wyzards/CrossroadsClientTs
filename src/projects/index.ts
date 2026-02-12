@@ -9,6 +9,7 @@ import {
     UpdateProjectPayload,
 } from "./types";
 import FormData from "form-data";
+import { fileTypeFromBuffer } from 'file-type';
 
 export class ProjectsApi {
     constructor(private http: HttpClient) { }
@@ -79,11 +80,30 @@ export class ProjectsApi {
     }
 
     // Attachments
-    setAttachments(projectId: number, files: Buffer[]): Promise<ProjectAttachment> {
+    async setAttachments(projectId: number, files: Buffer[]): Promise<ProjectAttachment[]> {
         const form = new FormData();
-        files.forEach((file, i) => form.append(`files[${i}]`, file, `attachment-${i}`));
 
-        return this.http.post<ProjectAttachment>(`/projects/${projectId}/attachments`, form, { headers: form.getHeaders() });
+        // If empty, explicitly send an empty array marker
+        if (files.length === 0) {
+            form.append('files', ''); // ensures field exists
+        } else {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i]!;
+
+                const type = await fileTypeFromBuffer(file);
+
+                const filename = `attachment-${i}.${type?.ext || 'bin'}`;
+                const contentType = type?.mime || 'application/octet-stream';
+
+                form.append('files[]', file, { filename, contentType });
+            }
+        }
+
+        return this.http.post<ProjectAttachment[]>(
+            `/projects/${projectId}/attachments`,
+            form,
+            { headers: form.getHeaders() }
+        );
     }
 
     downloadAllAttachments(projectId: number): Promise<Buffer[]> {
