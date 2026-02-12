@@ -86,11 +86,10 @@ export class ProjectsApi {
         return this.http.post<ProjectAttachment>(`/projects/${projectId}/attachments`, form, { headers: form.getHeaders() });
     }
 
-    downloadAllAttachments(projectId: number): Promise<Buffer> {
-        return this.http.get<ArrayBuffer>(
-            `/projects/${projectId}/attachments/download`,
-            { responseType: "arraybuffer" }
-        ).then(data => Buffer.from(data));
+    downloadAllAttachments(projectId: number): Promise<Buffer[]> {
+        return this.http.get<string[]>(
+            `/projects/${projectId}/attachments/download`
+        ).then(data => data.map(b64 => Buffer.from(b64, "base64")));
     }
 
     removeAttachment(projectId: number, attachmentId: number): Promise<boolean> {
