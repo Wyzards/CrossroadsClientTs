@@ -81,25 +81,15 @@ export class ProjectsApi {
     }
 
     // Attachments
-    async setAttachments(projectId: number, files: Buffer[]): Promise<any[]> {
-        const form = new FormData();
-
-        // Append each file directly
-        for (let i = 0; i < files.length; i++) {
-            const buffer = files[i]!;
-            const type = await fileTypeFromBuffer(buffer);
-
-            form.append('files[]', buffer, {
-                filename: `attachment-${i}.${type?.ext || 'bin'}`,
-                contentType: type?.mime || 'application/octet-stream',
-            });
-        }
-
-        // Even if files is empty, Laravel will get an empty form and delete attachments
+    async setAttachments(projectId: number, formData: FormData): Promise<any[]> {
+        // Just send the FormData to Laravel
         return this.http.post<any[]>(
             `/projects/${projectId}/attachments`,
-            form,
-            { headers: form.getHeaders(), maxBodyLength: Infinity }
+            formData,
+            {
+                headers: formData.getHeaders(),
+                maxBodyLength: Infinity, // allow large files
+            }
         );
     }
 
