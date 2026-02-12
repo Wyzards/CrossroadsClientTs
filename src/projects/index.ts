@@ -81,30 +81,19 @@ export class ProjectsApi {
     }
 
     // Attachments
-    async setAttachments(projectId: number, files: Buffer[]): Promise<ProjectAttachment[]> {
+    async setAttachments(projectId: number, files: Buffer[]): Promise<any[]> {
         const form = new FormData();
 
         // Append each file directly
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i]!;
+        files.forEach((buffer, i) => {
+            form.append('files[]', buffer, `attachment-${i}`);
+        });
 
-            const type = await fileTypeFromBuffer(file);
-
-            const filename = `attachment-${i}.${type?.ext || 'bin'}`;
-            const contentType = type?.mime || 'application/octet-stream';
-
-            form.append('files[]', file, {
-                filename,
-                contentType,
-                knownLength: file.length, // optional but fine for large files
-            });
-        }
-
-        // Axios handles multipart automatically
-        return this.http.post<ProjectAttachment[]>(
+        // Even if files is empty, Laravel will get an empty form and delete attachments
+        return this.http.post<any[]>(
             `/projects/${projectId}/attachments`,
             form,
-            { headers: form.getHeaders() } // no manual Content-Length needed
+            { headers: form.getHeaders(), maxBodyLength: Infinity }
         );
     }
 
