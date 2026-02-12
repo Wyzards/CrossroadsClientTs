@@ -10,6 +10,7 @@ import {
 } from "./types";
 import FormData from "form-data";
 import { fileTypeFromBuffer } from 'file-type';
+import { Readable } from 'stream';
 
 export class ProjectsApi {
     constructor(private http: HttpClient) { }
@@ -95,7 +96,15 @@ export class ProjectsApi {
                 const filename = `attachment-${i}.${type?.ext || 'bin'}`;
                 const contentType = type?.mime || 'application/octet-stream';
 
-                form.append('files[]', file, { filename, contentType });
+                form.append(
+                    'files[]',
+                    Readable.from(file),   // 👈 THIS is the fix
+                    {
+                        filename,
+                        contentType,
+                        knownLength: file.length
+                    }
+                );
             }
         }
 
