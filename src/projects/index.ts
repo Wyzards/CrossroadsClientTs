@@ -98,7 +98,7 @@ export class ProjectsApi {
 
                 form.append(
                     'files[]',
-                    Readable.from(file),   // 👈 THIS is the fix
+                    file, // 👈 THIS is correct
                     {
                         filename,
                         contentType,
@@ -108,10 +108,20 @@ export class ProjectsApi {
             }
         }
 
+        const headers = {
+            ...form.getHeaders(),
+            'Content-Length': await new Promise<number>((resolve, reject) => {
+                form.getLength((err, length) => {
+                    if (err) reject(err);
+                    else resolve(length);
+                });
+            })
+        };
+
         return this.http.post<ProjectAttachment[]>(
             `/projects/${projectId}/attachments`,
             form,
-            { headers: form.getHeaders() }
+            { headers: headers }
         );
     }
 
