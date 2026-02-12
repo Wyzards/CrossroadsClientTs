@@ -84,44 +84,27 @@ export class ProjectsApi {
     async setAttachments(projectId: number, files: Buffer[]): Promise<ProjectAttachment[]> {
         const form = new FormData();
 
-        // If empty, explicitly send an empty array marker
-        if (files.length === 0) {
-            form.append('files', ''); // ensures field exists
-        } else {
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i]!;
+        // Append each file directly
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i]!;
 
-                const type = await fileTypeFromBuffer(file);
+            const type = await fileTypeFromBuffer(file);
 
-                const filename = `attachment-${i}.${type?.ext || 'bin'}`;
-                const contentType = type?.mime || 'application/octet-stream';
+            const filename = `attachment-${i}.${type?.ext || 'bin'}`;
+            const contentType = type?.mime || 'application/octet-stream';
 
-                form.append(
-                    'files[]',
-                    file, // 👈 THIS is correct
-                    {
-                        filename,
-                        contentType,
-                        knownLength: file.length
-                    }
-                );
-            }
+            form.append('files[]', file, {
+                filename,
+                contentType,
+                knownLength: file.length, // optional but fine for large files
+            });
         }
 
-        const headers = {
-            ...form.getHeaders(),
-            'Content-Length': await new Promise<number>((resolve, reject) => {
-                form.getLength((err, length) => {
-                    if (err) reject(err);
-                    else resolve(length);
-                });
-            })
-        };
-
+        // Axios handles multipart automatically
         return this.http.post<ProjectAttachment[]>(
             `/projects/${projectId}/attachments`,
             form,
-            { headers: headers }
+            { headers: form.getHeaders() } // no manual Content-Length needed
         );
     }
 
