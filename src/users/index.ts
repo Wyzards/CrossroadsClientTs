@@ -5,7 +5,10 @@ export class CrossroadsUsersApi {
     constructor(private http: HttpClient) { }
 
     create(payload: CreateCrossroadsUserPayload) {
-        return this.http.post<CrossroadsUser>(`/crossroads-users`, payload);
+        return this.http.post<CrossroadsUser>(`/crossroads-users`, {
+            minecraft_uuid: payload.minecraftUuid,
+            discord_id: payload.discordId
+        });
     }
 
     list() {
