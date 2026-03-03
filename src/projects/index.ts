@@ -1,16 +1,15 @@
+import FormData from "form-data";
 import { NotFoundError } from "../error.js";
 import { HttpClient } from "../httpClient.js";
+import { CrossroadsUser } from "../users/types.js";
 import {
     CreateProjectPayload,
     Project,
-    ProjectAttachment,
     ProjectLink,
     ProjectStaff,
-    UpdateProjectPayload,
+    ProjectStaffRank,
+    UpdateProjectPayload
 } from "./types";
-import FormData from "form-data";
-import { fileTypeFromBuffer } from 'file-type';
-import { Readable } from 'stream';
 
 export class ProjectsApi {
     constructor(private http: HttpClient) { }
@@ -72,12 +71,12 @@ export class ProjectsApi {
         return this.http.get<ProjectStaff[]>(`/projects/${projectId}/staff`);
     }
 
-    addStaff(projectId: number, userId: number, role: string): Promise<ProjectStaff> {
-        return this.http.post<ProjectStaff>(`/projects/${projectId}/staff`, { userId, role });
+    setStaff(projectId: number, crossroadsUserId: number, rank: ProjectStaffRank): Promise<ProjectStaff> {
+        return this.http.post<ProjectStaff>(`/projects/${projectId}/staff/${crossroadsUserId}`, { rank });
     }
 
-    removeStaff(projectId: number, userId: number): Promise<boolean> {
-        return this.http.delete(`/projects/${projectId}/staff/${userId}`);
+    removeStaff(projectId: number, crossroadsUserId: number): Promise<boolean> {
+        return this.http.delete(`/projects/${projectId}/staff/${crossroadsUserId}`);
     }
 
     // Attachments

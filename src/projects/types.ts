@@ -1,3 +1,5 @@
+import { CrossroadsUser } from "../users/types.js";
+
 export interface Project {
     id: number;
     channel_id?: string;
@@ -41,7 +43,7 @@ export interface UpdateProjectPayload {
 
 export interface ProjectStaff {
     id: number;
-    userId: number;
+    user: CrossroadsUser;
     rank: ProjectStaffRank;
 }
 
