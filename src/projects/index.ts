@@ -72,7 +72,7 @@ export class ProjectsApi {
     }
 
     setStaff(projectId: number, crossroadsUserId: number, rank: ProjectStaffRank): Promise<ProjectStaff> {
-        return this.http.post<ProjectStaff>(`/projects/${projectId}/staff/${crossroadsUserId}`, { rank });
+        return this.http.put<ProjectStaff>(`/projects/${projectId}/staff/${crossroadsUserId}`, { rank });
     }
 
     removeStaff(projectId: number, crossroadsUserId: number): Promise<boolean> {
