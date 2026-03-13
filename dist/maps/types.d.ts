@@ -1,0 +1,12 @@
+export interface Map {
+    id: number;
+    name: string;
+    imageName: string;
+}
+export interface CreateMapPayload {
+    name: string;
+    imageName: string;
+}
+export interface MapByImageNameResponse extends Map {
+}
+//# sourceMappingURL=types.d.ts.map
