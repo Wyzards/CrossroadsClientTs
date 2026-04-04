@@ -11,6 +11,7 @@ export interface Project {
     ip?: string;
     role_id?: string;
     type?: string;
+    version?: string;
 }
 export interface CreateProjectPayload {
     name: string;
@@ -23,6 +24,7 @@ export interface CreateProjectPayload {
     ip?: string;
     role_id?: string;
     type?: string;
+    version?: string;
 }
 export interface UpdateProjectPayload {
     channel_id?: string;
@@ -35,6 +37,7 @@ export interface UpdateProjectPayload {
     ip?: string;
     role_id?: string;
     type?: string;
+    version?: string;
 }
 export interface ProjectStaff {
     id: number;
