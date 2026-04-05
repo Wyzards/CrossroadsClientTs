@@ -13,6 +13,7 @@ export interface Project {
     role_id?: string;
     type?: string;
     version?: string;
+    discovery_thread_id?: string;
 }
 
 export interface CreateProjectPayload {
@@ -28,6 +29,7 @@ export interface CreateProjectPayload {
     role_id?: string;
     type?: string;
     version?: string;
+    discovery_thread_id?: string;
 }
 
 export interface UpdateProjectPayload {
@@ -42,6 +44,7 @@ export interface UpdateProjectPayload {
     role_id?: string;
     type?: string;
     version?: string;
+    discovery_thread_id?: string;
 }
 
 export interface ProjectStaff {
