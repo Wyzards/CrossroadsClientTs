@@ -7,7 +7,10 @@ export interface Project {
     emoji?: string;
     name: string;
     display_name?: string;
-    status?: string;
+    architect_approval: string;
+    community_vetted: string;
+    project_stage: string;
+    accessibility: string;
     description?: string;
     ip?: string;
     role_id?: string;
@@ -23,7 +26,10 @@ export interface CreateProjectPayload {
     guild_id?: string;
     emoji?: string;
     display_name?: string;
-    status?: string;
+    architect_approval?: string;
+    community_vetted?: string;
+    project_stage?: string;
+    accessibility?: string;
     description?: string;
     ip?: string;
     role_id?: string;
@@ -38,7 +44,10 @@ export interface UpdateProjectPayload {
     emoji?: string;
     name?: string; // optional here, Laravel will validate if present
     display_name?: string;
-    status?: string;
+    architect_approval?: string;
+    community_vetted?: string;
+    project_stage?: string;
+    accessibility?: string;
     description?: string;
     ip?: string;
     role_id?: string;
@@ -85,33 +94,6 @@ export interface ProjectLink {
     label: string;
 }
 
-export enum ProjectStatus {
-    PLAYABLE = "playable",
-    IN_DEVELOPMENT = "in_development",
-    ARCHIVED = "archived",
-    HIDDEN = "hidden",
-}
-
-export class ProjectStatusHelper {
-    static pretty(status: ProjectStatus): string {
-        switch (status) {
-            case ProjectStatus.PLAYABLE: return "Playable";
-            case ProjectStatus.IN_DEVELOPMENT: return "In Development";
-            case ProjectStatus.ARCHIVED: return "Archived";
-            case ProjectStatus.HIDDEN: return "Hidden";
-        }
-    }
-
-    static values(): ProjectStatus[] {
-        return [
-            ProjectStatus.PLAYABLE,
-            ProjectStatus.IN_DEVELOPMENT,
-            ProjectStatus.ARCHIVED,
-            ProjectStatus.HIDDEN,
-        ];
-    }
-}
-
 export enum ProjectType {
     MMO = "mmo",
     SMP = "smp",
@@ -120,24 +102,75 @@ export enum ProjectType {
     OTHER = "other"
 }
 
-export class ProjectTypeHelper {
-    static pretty(status: ProjectType): string {
-        switch (status) {
-            case ProjectType.MMO: return "MMO";
-            case ProjectType.SMP: return "SMP";
-            case ProjectType.MAP: return "Map";
-            case ProjectType.RPG: return "RPG";
-            case ProjectType.OTHER: return "Other";
-        }
-    }
+export const ProjectTypeLabels: Record<ProjectType, string> = {
+    [ProjectType.MMO]: "MMO",
+    [ProjectType.SMP]: "SMP",
+    [ProjectType.MAP]: "Map",
+    [ProjectType.RPG]: "RPG",
+    [ProjectType.OTHER]: "Other"
+}
 
-    static values(): ProjectType[] {
-        return [
-            ProjectType.MMO,
-            ProjectType.SMP,
-            ProjectType.RPG,
-            ProjectType.MAP,
-            ProjectType.OTHER
-        ];
-    }
+export const ProjectTypeHelper = createEnumHelper(ProjectType, ProjectTypeLabels);
+
+export enum ProjectStage {
+    RELEASED = "released",
+    IN_DEVELOPMENT = "in_development",
+    ALPHA = "alpha",
+    BETA = "beta",
+    CLOSED = "closed"
+}
+
+export const ProjectStageLabels: Record<ProjectStage, string> = {
+    [ProjectStage.RELEASED]: "Released",
+    [ProjectStage.IN_DEVELOPMENT]: "In Development",
+    [ProjectStage.ALPHA]: "Alpha",
+    [ProjectStage.BETA]: "Beta",
+    [ProjectStage.CLOSED]: "Closed"
+}
+
+export const ProjectStageHelper = createEnumHelper(ProjectStage, ProjectStageLabels);
+
+export enum CommunityVetted {
+    ACCEPTED = 'accepted',
+    REJECTED = 'rejected',
+    UNVETTED = 'unvetted',
+    SKIPPED = 'skipped',
+}
+
+export const CommunityVettedLabels: Record<CommunityVetted, string> = {
+    [CommunityVetted.ACCEPTED]: "Passed",
+    [CommunityVetted.REJECTED]: "Rejected",
+    [CommunityVetted.UNVETTED]: "Unvetted",
+    [CommunityVetted.SKIPPED]: "Skipped",
+}
+
+export const CommunityVettedHelper = createEnumHelper(CommunityVetted, CommunityVettedLabels);
+
+export enum ArchitectApproval {
+    YES = 'yes',
+    NO = 'no',
+    DISQUALIFIED = 'disqualified'
+}
+
+export const ArchitectApprovalLabels: Record<ArchitectApproval, string> = {
+    [ArchitectApproval.YES]: "Approved",
+    [ArchitectApproval.NO]: "Unapproved",
+    [ArchitectApproval.DISQUALIFIED]: "Disqualified",
+}
+
+export enum Accessibility {
+    PUBLIC = 'public',
+    PAID = 'paid',
+    EXCLUSIVE = 'exclusive',
+    CLOSED = 'closed'
+}
+
+export function createEnumHelper<T extends Record<string, string>>(
+    enumObj: T,
+    labels: Record<T[keyof T], string>
+) {
+    return {
+        values: () => Object.values(enumObj),
+        pretty: (value: T[keyof T]) => labels[value] ?? value,
+    };
 }
