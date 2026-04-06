@@ -147,14 +147,14 @@ export const CommunityVettedLabels: Record<CommunityVetted, string> = {
 export const CommunityVettedHelper = createEnumHelper(CommunityVetted, CommunityVettedLabels);
 
 export enum ArchitectApproval {
-    YES = 'yes',
-    NO = 'no',
+    APPROVED = 'approved',
+    UNAPPROVED = 'unapproved',
     DISQUALIFIED = 'disqualified'
 }
 
 export const ArchitectApprovalLabels: Record<ArchitectApproval, string> = {
-    [ArchitectApproval.YES]: "Approved",
-    [ArchitectApproval.NO]: "Unapproved",
+    [ArchitectApproval.APPROVED]: "Approved",
+    [ArchitectApproval.UNAPPROVED]: "Unapproved",
     [ArchitectApproval.DISQUALIFIED]: "Disqualified",
 }
 
