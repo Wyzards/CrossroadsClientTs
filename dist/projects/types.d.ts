@@ -6,7 +6,10 @@ export interface Project {
     emoji?: string;
     name: string;
     display_name?: string;
-    status?: string;
+    architect_approval: string;
+    community_vetted: string;
+    project_stage: string;
+    accessibility: string;
     description?: string;
     ip?: string;
     role_id?: string;
@@ -20,7 +23,10 @@ export interface CreateProjectPayload {
     guild_id?: string;
     emoji?: string;
     display_name?: string;
-    status?: string;
+    architect_approval?: string;
+    community_vetted?: string;
+    project_stage?: string;
+    accessibility?: string;
     description?: string;
     ip?: string;
     role_id?: string;
@@ -34,7 +40,10 @@ export interface UpdateProjectPayload {
     emoji?: string;
     name?: string;
     display_name?: string;
-    status?: string;
+    architect_approval?: string;
+    community_vetted?: string;
+    project_stage?: string;
+    accessibility?: string;
     description?: string;
     ip?: string;
     role_id?: string;
@@ -64,16 +73,6 @@ export interface ProjectLink {
     url: string;
     label: string;
 }
-export declare enum ProjectStatus {
-    PLAYABLE = "playable",
-    IN_DEVELOPMENT = "in_development",
-    ARCHIVED = "archived",
-    HIDDEN = "hidden"
-}
-export declare class ProjectStatusHelper {
-    static pretty(status: ProjectStatus): string;
-    static values(): ProjectStatus[];
-}
 export declare enum ProjectType {
     MMO = "mmo",
     SMP = "smp",
@@ -81,8 +80,48 @@ export declare enum ProjectType {
     RPG = "rpg",
     OTHER = "other"
 }
-export declare class ProjectTypeHelper {
-    static pretty(status: ProjectType): string;
-    static values(): ProjectType[];
+export declare const ProjectTypeLabels: Record<ProjectType, string>;
+export declare const ProjectTypeHelper: {
+    values: () => string[];
+    pretty: (value: ProjectType) => string;
+};
+export declare enum ProjectStage {
+    RELEASED = "released",
+    IN_DEVELOPMENT = "in_development",
+    ALPHA = "alpha",
+    BETA = "beta",
+    CLOSED = "closed"
 }
+export declare const ProjectStageLabels: Record<ProjectStage, string>;
+export declare const ProjectStageHelper: {
+    values: () => string[];
+    pretty: (value: ProjectStage) => string;
+};
+export declare enum CommunityVetted {
+    ACCEPTED = "accepted",
+    REJECTED = "rejected",
+    UNVETTED = "unvetted",
+    SKIPPED = "skipped"
+}
+export declare const CommunityVettedLabels: Record<CommunityVetted, string>;
+export declare const CommunityVettedHelper: {
+    values: () => string[];
+    pretty: (value: CommunityVetted) => string;
+};
+export declare enum ArchitectApproval {
+    APPROVED = "approved",
+    UNAPPROVED = "unapproved",
+    DISQUALIFIED = "disqualified"
+}
+export declare const ArchitectApprovalLabels: Record<ArchitectApproval, string>;
+export declare enum Accessibility {
+    PUBLIC = "public",
+    PAID = "paid",
+    EXCLUSIVE = "exclusive",
+    CLOSED = "closed"
+}
+export declare function createEnumHelper<T extends Record<string, string>>(enumObj: T, labels: Record<T[keyof T], string>): {
+    values: () => string[];
+    pretty: (value: T[keyof T]) => Record<T[keyof T], string>[T[keyof T]];
+};
 //# sourceMappingURL=types.d.ts.map

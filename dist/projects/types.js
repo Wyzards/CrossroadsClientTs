@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProjectTypeHelper = exports.ProjectType = exports.ProjectStatusHelper = exports.ProjectStatus = exports.ProjectStaffRankHelper = exports.ProjectStaffRank = void 0;
+exports.Accessibility = exports.ArchitectApprovalLabels = exports.ArchitectApproval = exports.CommunityVettedHelper = exports.CommunityVettedLabels = exports.CommunityVetted = exports.ProjectStageHelper = exports.ProjectStageLabels = exports.ProjectStage = exports.ProjectTypeHelper = exports.ProjectTypeLabels = exports.ProjectType = exports.ProjectStaffRankHelper = exports.ProjectStaffRank = void 0;
+exports.createEnumHelper = createEnumHelper;
 var ProjectStaffRank;
 (function (ProjectStaffRank) {
     ProjectStaffRank["LEAD"] = "lead";
@@ -21,32 +22,6 @@ class ProjectStaffRankHelper {
     }
 }
 exports.ProjectStaffRankHelper = ProjectStaffRankHelper;
-var ProjectStatus;
-(function (ProjectStatus) {
-    ProjectStatus["PLAYABLE"] = "playable";
-    ProjectStatus["IN_DEVELOPMENT"] = "in_development";
-    ProjectStatus["ARCHIVED"] = "archived";
-    ProjectStatus["HIDDEN"] = "hidden";
-})(ProjectStatus || (exports.ProjectStatus = ProjectStatus = {}));
-class ProjectStatusHelper {
-    static pretty(status) {
-        switch (status) {
-            case ProjectStatus.PLAYABLE: return "Playable";
-            case ProjectStatus.IN_DEVELOPMENT: return "In Development";
-            case ProjectStatus.ARCHIVED: return "Archived";
-            case ProjectStatus.HIDDEN: return "Hidden";
-        }
-    }
-    static values() {
-        return [
-            ProjectStatus.PLAYABLE,
-            ProjectStatus.IN_DEVELOPMENT,
-            ProjectStatus.ARCHIVED,
-            ProjectStatus.HIDDEN,
-        ];
-    }
-}
-exports.ProjectStatusHelper = ProjectStatusHelper;
 var ProjectType;
 (function (ProjectType) {
     ProjectType["MMO"] = "mmo";
@@ -55,25 +30,66 @@ var ProjectType;
     ProjectType["RPG"] = "rpg";
     ProjectType["OTHER"] = "other";
 })(ProjectType || (exports.ProjectType = ProjectType = {}));
-class ProjectTypeHelper {
-    static pretty(status) {
-        switch (status) {
-            case ProjectType.MMO: return "MMO";
-            case ProjectType.SMP: return "SMP";
-            case ProjectType.MAP: return "Map";
-            case ProjectType.RPG: return "RPG";
-            case ProjectType.OTHER: return "Other";
-        }
-    }
-    static values() {
-        return [
-            ProjectType.MMO,
-            ProjectType.SMP,
-            ProjectType.RPG,
-            ProjectType.MAP,
-            ProjectType.OTHER
-        ];
-    }
+exports.ProjectTypeLabels = {
+    [ProjectType.MMO]: "MMO",
+    [ProjectType.SMP]: "SMP",
+    [ProjectType.MAP]: "Map",
+    [ProjectType.RPG]: "RPG",
+    [ProjectType.OTHER]: "Other"
+};
+exports.ProjectTypeHelper = createEnumHelper(ProjectType, exports.ProjectTypeLabels);
+var ProjectStage;
+(function (ProjectStage) {
+    ProjectStage["RELEASED"] = "released";
+    ProjectStage["IN_DEVELOPMENT"] = "in_development";
+    ProjectStage["ALPHA"] = "alpha";
+    ProjectStage["BETA"] = "beta";
+    ProjectStage["CLOSED"] = "closed";
+})(ProjectStage || (exports.ProjectStage = ProjectStage = {}));
+exports.ProjectStageLabels = {
+    [ProjectStage.RELEASED]: "Released",
+    [ProjectStage.IN_DEVELOPMENT]: "In Development",
+    [ProjectStage.ALPHA]: "Alpha",
+    [ProjectStage.BETA]: "Beta",
+    [ProjectStage.CLOSED]: "Closed"
+};
+exports.ProjectStageHelper = createEnumHelper(ProjectStage, exports.ProjectStageLabels);
+var CommunityVetted;
+(function (CommunityVetted) {
+    CommunityVetted["ACCEPTED"] = "accepted";
+    CommunityVetted["REJECTED"] = "rejected";
+    CommunityVetted["UNVETTED"] = "unvetted";
+    CommunityVetted["SKIPPED"] = "skipped";
+})(CommunityVetted || (exports.CommunityVetted = CommunityVetted = {}));
+exports.CommunityVettedLabels = {
+    [CommunityVetted.ACCEPTED]: "Passed",
+    [CommunityVetted.REJECTED]: "Rejected",
+    [CommunityVetted.UNVETTED]: "Unvetted",
+    [CommunityVetted.SKIPPED]: "Skipped",
+};
+exports.CommunityVettedHelper = createEnumHelper(CommunityVetted, exports.CommunityVettedLabels);
+var ArchitectApproval;
+(function (ArchitectApproval) {
+    ArchitectApproval["APPROVED"] = "approved";
+    ArchitectApproval["UNAPPROVED"] = "unapproved";
+    ArchitectApproval["DISQUALIFIED"] = "disqualified";
+})(ArchitectApproval || (exports.ArchitectApproval = ArchitectApproval = {}));
+exports.ArchitectApprovalLabels = {
+    [ArchitectApproval.APPROVED]: "Approved",
+    [ArchitectApproval.UNAPPROVED]: "Unapproved",
+    [ArchitectApproval.DISQUALIFIED]: "Disqualified",
+};
+var Accessibility;
+(function (Accessibility) {
+    Accessibility["PUBLIC"] = "public";
+    Accessibility["PAID"] = "paid";
+    Accessibility["EXCLUSIVE"] = "exclusive";
+    Accessibility["CLOSED"] = "closed";
+})(Accessibility || (exports.Accessibility = Accessibility = {}));
+function createEnumHelper(enumObj, labels) {
+    return {
+        values: () => Object.values(enumObj),
+        pretty: (value) => labels[value] ?? value,
+    };
 }
-exports.ProjectTypeHelper = ProjectTypeHelper;
 //# sourceMappingURL=types.js.map
