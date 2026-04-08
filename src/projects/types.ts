@@ -19,6 +19,12 @@ export interface Project {
     discovery_thread_id?: string;
 }
 
+export interface ProjectWithRelations extends Project {
+    links: ProjectLink[];
+    attachments: ProjectAttachment[];
+    staff: ProjectStaff[];
+}
+
 export interface CreateProjectPayload {
     name: string;
     // whatever other required fields for creation
