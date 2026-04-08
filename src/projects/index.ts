@@ -8,6 +8,7 @@ import {
     ProjectLink,
     ProjectStaff,
     ProjectStaffRank,
+    ProjectWithRelations,
     UpdateProjectPayload
 } from "./types";
 
@@ -19,31 +20,31 @@ export class ProjectsApi {
         return this.http.get<Project[]>("/projects");
     }
 
-    create(project: CreateProjectPayload): Promise<Project> {
-        return this.http.post<Project>("/projects", project);
+    create(project: CreateProjectPayload): Promise<ProjectWithRelations> {
+        return this.http.post<ProjectWithRelations>("/projects", project);
     }
 
-    async getById(id: number): Promise<Project | null> {
+    async getById(id: number): Promise<ProjectWithRelations | null> {
         try {
-            return await this.http.get<Project>(`/projects/${id}`);
+            return await this.http.get<ProjectWithRelations>(`/projects/${id}`);
         } catch (err) {
             if (err instanceof NotFoundError) return null;
             throw err;
         }
     }
 
-    async getByName(name: string): Promise<Project | null> {
+    async getByName(name: string): Promise<ProjectWithRelations | null> {
         try {
-            return await this.http.get<Project>(`/projects/by-name/${name}`);
+            return await this.http.get<ProjectWithRelations>(`/projects/by-name/${name}`);
         } catch (err) {
             if (err instanceof NotFoundError) return null;
             throw err;
         }
     }
 
-    async getByGuild(name: string): Promise<Project | null> {
+    async getByGuild(name: string): Promise<ProjectWithRelations | null> {
         try {
-            return await this.http.get<Project>(`/projects/by-guild/${name}`);
+            return await this.http.get<ProjectWithRelations>(`/projects/by-guild/${name}`);
         } catch (err) {
             if (err instanceof NotFoundError) return null;
             throw err;
@@ -58,8 +59,8 @@ export class ProjectsApi {
         return this.http.get<{ exists: boolean }>(`/projects/exists/by-guild/${guildId}`);
     }
 
-    update(id: number, payload: UpdateProjectPayload): Promise<Project> {
-        return this.http.put<Project>(`/projects/${id}`, payload);
+    update(id: number, payload: UpdateProjectPayload): Promise<ProjectWithRelations> {
+        return this.http.put<ProjectWithRelations>(`/projects/${id}`, payload);
     }
 
     delete(id: number): Promise<boolean> {
