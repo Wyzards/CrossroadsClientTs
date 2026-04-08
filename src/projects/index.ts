@@ -16,8 +16,8 @@ export class ProjectsApi {
     constructor(private http: HttpClient) { }
 
     // Projects
-    list(): Promise<Project[]> {
-        return this.http.get<Project[]>("/projects");
+    list(): Promise<ProjectWithRelations[]> {
+        return this.http.get<ProjectWithRelations[]>("/projects");
     }
 
     create(project: CreateProjectPayload): Promise<ProjectWithRelations> {
