@@ -10,7 +10,7 @@ export interface Project {
     community_vetted: CommunityVetted;
     project_stage: ProjectStage;
     accessibility: Accessibility;
-    type?: ProjectType;
+    type: ProjectType;
     description?: string;
     ip?: string;
     role_id?: string;
