@@ -7,14 +7,14 @@ export interface Project {
     emoji?: string;
     name: string;
     display_name?: string;
-    architect_approval: string;
-    community_vetted: string;
-    project_stage: string;
-    accessibility: string;
+    architect_approval: ArchitectApproval;
+    community_vetted: CommunityVetted;
+    project_stage: ProjectStage;
+    accessibility: Accessibility;
+    type?: ProjectType;
     description?: string;
     ip?: string;
     role_id?: string;
-    type?: string;
     version?: string;
     discovery_thread_id?: string;
 }
@@ -26,14 +26,14 @@ export interface CreateProjectPayload {
     guild_id?: string;
     emoji?: string;
     display_name?: string;
-    architect_approval?: string;
-    community_vetted?: string;
-    project_stage?: string;
-    accessibility?: string;
+    architect_approval: ArchitectApproval;
+    community_vetted: CommunityVetted;
+    project_stage: ProjectStage;
+    accessibility: Accessibility;
+    type?: ProjectType;
     description?: string;
     ip?: string;
     role_id?: string;
-    type?: string;
     version?: string;
     discovery_thread_id?: string;
 }
@@ -44,17 +44,74 @@ export interface UpdateProjectPayload {
     emoji?: string;
     name?: string; // optional here, Laravel will validate if present
     display_name?: string;
-    architect_approval?: string;
-    community_vetted?: string;
-    project_stage?: string;
-    accessibility?: string;
+    architect_approval: ArchitectApproval;
+    community_vetted: CommunityVetted;
+    project_stage: ProjectStage;
+    accessibility: Accessibility;
     description?: string;
     ip?: string;
     role_id?: string;
-    type?: string;
+    type?: ProjectType;
     version?: string;
     discovery_thread_id?: string;
 }
+
+export interface ProjectListEntryWithProject extends ProjectListEntry {
+    project: Project;
+}
+
+export interface ProjectListWithEntries extends ProjectList {
+    entries: ProjectListEntryWithProject[];
+}
+
+export interface ProjectList {
+    id: number;
+    name: string;
+    channel_id: string;
+    filters: ProjectFilter; // 👈 important
+    is_active: boolean;
+    created_at: string | Date;
+    updated_at: string | Date;
+}
+
+export interface ProjectListEntry {
+    id: number;
+    project_list_id: number;
+    project_id: number;
+    thread_channel_id: string;
+    created_at: string | Date;
+    updated_at: string | Date;
+}
+
+export type ProjectFilter =
+    | {
+        all: ProjectFilter[];
+    }
+    | {
+        any: ProjectFilter[];
+    }
+    | {
+        field: ProjectFilterField;
+        operator: ProjectFilterOperator;
+        value: ProjectFilterValue;
+    };
+
+export type ProjectFilterValue =
+    | ArchitectApproval
+    | CommunityVetted
+    | ProjectStage
+    | Accessibility
+    | ProjectType
+    | string; // fallback for other future fields
+
+export type ProjectFilterField =
+    | "architect_approval"
+    | "community_vetted"
+    | "project_stage"
+    | "accessibility"
+    | "type";
+
+export type ProjectFilterOperator = "=" | "!=";
 
 export interface ProjectStaff {
     id: number;
@@ -92,6 +149,10 @@ export interface ProjectLink {
     id: number;
     url: string;
     label: string;
+}
+
+export interface ProjectList {
+
 }
 
 export enum ProjectType {
