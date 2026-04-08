@@ -26,10 +26,10 @@ export interface CreateProjectPayload {
     guild_id?: string;
     emoji?: string;
     display_name?: string;
-    architect_approval: ArchitectApproval;
-    community_vetted: CommunityVetted;
-    project_stage: ProjectStage;
-    accessibility: Accessibility;
+    architect_approval?: ArchitectApproval;
+    community_vetted?: CommunityVetted;
+    project_stage?: ProjectStage;
+    accessibility?: Accessibility;
     type?: ProjectType;
     description?: string;
     ip?: string;
@@ -44,10 +44,10 @@ export interface UpdateProjectPayload {
     emoji?: string;
     name?: string; // optional here, Laravel will validate if present
     display_name?: string;
-    architect_approval: ArchitectApproval;
-    community_vetted: CommunityVetted;
-    project_stage: ProjectStage;
-    accessibility: Accessibility;
+    architect_approval?: ArchitectApproval;
+    community_vetted?: CommunityVetted;
+    project_stage?: ProjectStage;
+    accessibility?: Accessibility;
     description?: string;
     ip?: string;
     role_id?: string;
