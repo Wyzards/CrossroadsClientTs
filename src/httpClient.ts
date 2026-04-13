@@ -38,12 +38,24 @@ export class HttpClient {
             },
         });
 
+
+
         if (!axiosInstance) {
             this.axios.interceptors.response.use(
                 res => res,
                 err => {
                     const status = err.response?.status;
                     const data = err.response?.data;
+
+                    console.error("HTTP ERROR RESPONSE:", {
+                        status,
+                        data,
+                        url: err.config?.url,
+                        method: err.config?.method,
+                        requestData: err.config?.data,
+                        headers: err.response?.headers,
+                    });
+
                     switch (status) {
                         case 401: throw new UnauthorizedError(data);
                         case 404: throw new NotFoundError(data);

@@ -32,6 +32,14 @@ class HttpClient {
             this.axios.interceptors.response.use(res => res, err => {
                 const status = err.response?.status;
                 const data = err.response?.data;
+                console.error("HTTP ERROR RESPONSE:", {
+                    status,
+                    data,
+                    url: err.config?.url,
+                    method: err.config?.method,
+                    requestData: err.config?.data,
+                    headers: err.response?.headers,
+                });
                 switch (status) {
                     case 401: throw new error_1.UnauthorizedError(data);
                     case 404: throw new error_1.NotFoundError(data);
