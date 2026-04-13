@@ -73,11 +73,13 @@ var ArchitectApproval;
     ArchitectApproval["APPROVED"] = "approved";
     ArchitectApproval["UNAPPROVED"] = "unapproved";
     ArchitectApproval["DISQUALIFIED"] = "disqualified";
+    ArchitectApproval["HIDDEN"] = "hidden";
 })(ArchitectApproval || (exports.ArchitectApproval = ArchitectApproval = {}));
 exports.ArchitectApprovalLabels = {
     [ArchitectApproval.APPROVED]: "Approved",
     [ArchitectApproval.UNAPPROVED]: "Unapproved",
     [ArchitectApproval.DISQUALIFIED]: "Disqualified",
+    [ArchitectApproval.HIDDEN]: "Hidden",
 };
 var Accessibility;
 (function (Accessibility) {

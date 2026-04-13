@@ -216,13 +216,15 @@ export const CommunityVettedHelper = createEnumHelper(CommunityVetted, Community
 export enum ArchitectApproval {
     APPROVED = 'approved',
     UNAPPROVED = 'unapproved',
-    DISQUALIFIED = 'disqualified'
+    DISQUALIFIED = 'disqualified',
+    HIDDEN = 'hidden'
 }
 
 export const ArchitectApprovalLabels: Record<ArchitectApproval, string> = {
     [ArchitectApproval.APPROVED]: "Approved",
     [ArchitectApproval.UNAPPROVED]: "Unapproved",
     [ArchitectApproval.DISQUALIFIED]: "Disqualified",
+    [ArchitectApproval.HIDDEN]: "Hidden",
 }
 
 export enum Accessibility {

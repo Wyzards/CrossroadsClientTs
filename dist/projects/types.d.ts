@@ -153,7 +153,8 @@ export declare const CommunityVettedHelper: {
 export declare enum ArchitectApproval {
     APPROVED = "approved",
     UNAPPROVED = "unapproved",
-    DISQUALIFIED = "disqualified"
+    DISQUALIFIED = "disqualified",
+    HIDDEN = "hidden"
 }
 export declare const ArchitectApprovalLabels: Record<ArchitectApproval, string>;
 export declare enum Accessibility {

@@ -1,10 +1,8 @@
 import FormData from "form-data";
 import { NotFoundError } from "../error.js";
 import { HttpClient } from "../httpClient.js";
-import { CrossroadsUser } from "../users/types.js";
 import {
     CreateProjectPayload,
-    Project,
     ProjectLink,
     ProjectStaff,
     ProjectStaffRank,
