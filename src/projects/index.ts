@@ -3,12 +3,14 @@ import { NotFoundError } from "../error.js";
 import { HttpClient } from "../httpClient.js";
 import {
     CreateProjectPayload,
+    Project,
     ProjectLink,
     ProjectStaff,
     ProjectStaffRank,
     ProjectWithRelations,
     UpdateProjectPayload
 } from "./types";
+import { FilterGroup } from "../types/filter.js";
 
 export class ProjectsApi {
     constructor(private http: HttpClient) { }
@@ -16,6 +18,11 @@ export class ProjectsApi {
     // Projects
     list(): Promise<ProjectWithRelations[]> {
         return this.http.get<ProjectWithRelations[]>("/projects");
+    }
+
+
+    search(filter: FilterGroup): Promise<ProjectWithRelations[]> {
+        return this.http.post<ProjectWithRelations[]>("/projects/search", { filter });
     }
 
     create(project: CreateProjectPayload): Promise<ProjectWithRelations> {

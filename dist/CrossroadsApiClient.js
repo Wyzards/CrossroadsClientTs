@@ -5,6 +5,8 @@ const error_js_1 = require("./error.js");
 const httpClient_1 = require("./httpClient");
 const mapInstances_1 = require("./mapInstances");
 const maps_1 = require("./maps");
+const index_js_1 = require("./projectListEntries/index.js");
+const index_js_2 = require("./projectLists/index.js");
 const projects_1 = require("./projects");
 const users_1 = require("./users");
 class CrossroadsApiClient {
@@ -14,6 +16,8 @@ class CrossroadsApiClient {
         this.mapInstances = new mapInstances_1.MapInstancesApi(http);
         this.users = new users_1.CrossroadsUsersApi(http);
         this.projects = new projects_1.ProjectsApi(http);
+        this.projectLists = new index_js_2.ProjectListsApi(http);
+        this.projectListEntries = new index_js_1.ProjectListEntriesApi(http);
     }
     async setProjectStaffByDiscordId(projectId, discordId, rank) {
         let user;

@@ -2,6 +2,8 @@ import { NotFoundError } from "./error.js";
 import { HttpClient } from "./httpClient";
 import { MapInstancesApi } from "./mapInstances";
 import { MapsApi } from "./maps";
+import { ProjectListEntriesApi } from "./projectListEntries/index.js";
+import { ProjectListsApi } from "./projectLists/index.js";
 import { ProjectsApi } from "./projects";
 import { ProjectStaff, ProjectStaffRank } from "./projects/types.js";
 import { CrossroadsUsersApi } from "./users";
@@ -12,6 +14,8 @@ export class CrossroadsApiClient {
     public mapInstances: MapInstancesApi;
     public users: CrossroadsUsersApi;
     public projects: ProjectsApi;
+    public projectLists: ProjectListsApi;
+    public projectListEntries: ProjectListEntriesApi;
 
     constructor(baseURL: string, token: string) {
         const http: HttpClient = new HttpClient(baseURL, token);
@@ -20,6 +24,8 @@ export class CrossroadsApiClient {
         this.mapInstances = new MapInstancesApi(http);
         this.users = new CrossroadsUsersApi(http);
         this.projects = new ProjectsApi(http);
+        this.projectLists = new ProjectListsApi(http);
+        this.projectListEntries = new ProjectListEntriesApi(http);
     }
 
     async setProjectStaffByDiscordId(

@@ -10,6 +10,9 @@ class ProjectsApi {
     list() {
         return this.http.get("/projects");
     }
+    search(filter) {
+        return this.http.post("/projects/search", { filter });
+    }
     create(project) {
         return this.http.post("/projects", project);
     }

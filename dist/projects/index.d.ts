@@ -1,10 +1,12 @@
 import FormData from "form-data";
 import { HttpClient } from "../httpClient.js";
 import { CreateProjectPayload, ProjectLink, ProjectStaff, ProjectStaffRank, ProjectWithRelations, UpdateProjectPayload } from "./types";
+import { FilterGroup } from "../types/filter.js";
 export declare class ProjectsApi {
     private http;
     constructor(http: HttpClient);
     list(): Promise<ProjectWithRelations[]>;
+    search(filter: FilterGroup): Promise<ProjectWithRelations[]>;
     create(project: CreateProjectPayload): Promise<ProjectWithRelations>;
     getById(id: number): Promise<ProjectWithRelations | null>;
     getByName(name: string): Promise<ProjectWithRelations | null>;
