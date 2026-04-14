@@ -7,7 +7,7 @@ export declare class ProjectListsApi {
     getById(id: number): Promise<ProjectListWithEntries>;
     create(payload: {
         name: string;
-        channel_id: string;
+        channel_id: string | null;
         filters: any;
         is_active?: boolean;
     }): Promise<ProjectList>;

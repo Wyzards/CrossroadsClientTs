@@ -3,7 +3,7 @@ import { FilterGroup } from "../types/filter.js";
 export interface ProjectList {
     id: number;
     name: string;
-    channel_id: string;
+    channel_id: string | null;
     filters: FilterGroup;
     is_active: boolean;
     created_at: string;

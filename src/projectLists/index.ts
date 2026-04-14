@@ -14,7 +14,7 @@ export class ProjectListsApi {
 
     create(payload: {
         name: string;
-        channel_id: string;
+        channel_id: string | null;
         filters: any;
         is_active?: boolean;
     }): Promise<ProjectList> {
