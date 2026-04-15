@@ -1,10 +1,32 @@
+import {
+    Accessibility,
+    ArchitectApproval,
+    CommunityVetted,
+    ProjectStage,
+    ProjectType
+} from "../projects/types.js";
+
 export type FilterRule = {
-    field: string;
+    field: FilterField;
     operator: '=' | '!=';
-    value: string;
+    value: FilterValue;
 };
 
 export type FilterGroup = {
     all?: (FilterRule | FilterGroup)[];
     any?: (FilterRule | FilterGroup)[];
 };
+
+export type FilterField =
+    | "architect_approval"
+    | "community_vetted"
+    | "project_stage"
+    | "accessibility"
+    | "type";
+
+export type FilterValue =
+    | ArchitectApproval
+    | CommunityVetted
+    | ProjectStage
+    | Accessibility
+    | ProjectType;

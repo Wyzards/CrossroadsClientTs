@@ -56,41 +56,6 @@ export interface UpdateProjectPayload {
     version?: string;
     discovery_thread_id?: string;
 }
-export interface ProjectListEntryWithProject extends ProjectListEntry {
-    project: Project;
-}
-export interface ProjectListWithEntries extends ProjectList {
-    entries: ProjectListEntryWithProject[];
-}
-export interface ProjectList {
-    id: number;
-    name: string;
-    channel_id: string;
-    filters: ProjectFilter;
-    is_active: boolean;
-    created_at: string | Date;
-    updated_at: string | Date;
-}
-export interface ProjectListEntry {
-    id: number;
-    project_list_id: number;
-    project_id: number;
-    thread_channel_id: string;
-    created_at: string | Date;
-    updated_at: string | Date;
-}
-export type ProjectFilter = {
-    all: ProjectFilter[];
-} | {
-    any: ProjectFilter[];
-} | {
-    field: ProjectFilterField;
-    operator: ProjectFilterOperator;
-    value: ProjectFilterValue;
-};
-export type ProjectFilterValue = ArchitectApproval | CommunityVetted | ProjectStage | Accessibility | ProjectType | string;
-export type ProjectFilterField = "architect_approval" | "community_vetted" | "project_stage" | "accessibility" | "type";
-export type ProjectFilterOperator = "=" | "!=";
 export interface ProjectStaff {
     id: number;
     user: CrossroadsUser;

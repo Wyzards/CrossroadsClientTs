@@ -1,4 +1,5 @@
-import { ProjectListEntry } from "../projects/types.js";
+import { ProjectListEntry } from "../projectListEntries/types.js";
+import { Accessibility, ArchitectApproval, CommunityVetted, Project, ProjectStage, ProjectType } from "../projects/types.js";
 import { FilterGroup } from "../types/filter.js";
 
 export interface ProjectList {
@@ -7,10 +8,12 @@ export interface ProjectList {
     channel_id: string | null;
     filters: FilterGroup;
     is_active: boolean;
-    created_at: string;
-    updated_at: string;
 }
 
 export interface ProjectListWithEntries extends ProjectList {
     entries: ProjectListEntry[];
+}
+
+export interface ProjectListEntryWithProject extends ProjectListEntry {
+    project: Project;
 }

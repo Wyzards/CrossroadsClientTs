@@ -1,4 +1,5 @@
 import { HttpClient } from "../httpClient.js";
+import { FilterGroup } from "../types/filter.js";
 import { ProjectList, ProjectListWithEntries } from "./types";
 export declare class ProjectListsApi {
     private http;
@@ -7,14 +8,14 @@ export declare class ProjectListsApi {
     getById(id: number): Promise<ProjectListWithEntries>;
     create(payload: {
         name: string;
-        channel_id: string | null;
-        filters: any;
+        channel_id?: string;
+        filters?: FilterGroup;
         is_active?: boolean;
     }): Promise<ProjectList>;
     update(id: number, payload: {
         name?: string;
-        channel_id?: string;
-        filters?: any;
+        channel_id?: string | null;
+        filters?: FilterGroup;
         is_active?: boolean;
     }): Promise<ProjectList>;
     delete(id: number): Promise<void>;
