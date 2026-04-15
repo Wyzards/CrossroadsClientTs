@@ -11,13 +11,13 @@ export declare class ProjectListsApi {
         channel_id?: string | null;
         filters?: FilterGroup;
         is_active?: boolean;
-    }): Promise<ProjectList>;
+    }): Promise<ProjectListWithEntries>;
     update(id: number, payload: {
         name?: string;
         channel_id?: string | null;
         filters?: FilterGroup;
         is_active?: boolean;
-    }): Promise<ProjectList>;
+    }): Promise<ProjectListWithEntries>;
     delete(id: number): Promise<void>;
 }
 //# sourceMappingURL=index.d.ts.map

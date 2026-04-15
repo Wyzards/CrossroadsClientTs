@@ -18,7 +18,7 @@ export class ProjectListsApi {
         channel_id?: string | null;
         filters?: FilterGroup;
         is_active?: boolean;
-    }): Promise<ProjectList> {
+    }): Promise<ProjectListWithEntries> {
         return this.http.post<ProjectListWithEntries>("/project-lists", payload);
     }
 
@@ -27,7 +27,7 @@ export class ProjectListsApi {
         channel_id?: string | null;
         filters?: FilterGroup;
         is_active?: boolean;
-    }): Promise<ProjectList> {
+    }): Promise<ProjectListWithEntries> {
         return this.http.put<ProjectListWithEntries>(`/project-lists/${id}`, payload);
     }
 
