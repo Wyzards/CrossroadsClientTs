@@ -19,7 +19,7 @@ export class ProjectListsApi {
         filters?: FilterGroup;
         is_active?: boolean;
     }): Promise<ProjectList> {
-        return this.http.post<ProjectList>("/project-lists", payload);
+        return this.http.post<ProjectListWithEntries>("/project-lists", payload);
     }
 
     update(id: number, payload: {
@@ -28,7 +28,7 @@ export class ProjectListsApi {
         filters?: FilterGroup;
         is_active?: boolean;
     }): Promise<ProjectList> {
-        return this.http.put<ProjectList>(`/project-lists/${id}`, payload);
+        return this.http.put<ProjectListWithEntries>(`/project-lists/${id}`, payload);
     }
 
     delete(id: number): Promise<void> {
