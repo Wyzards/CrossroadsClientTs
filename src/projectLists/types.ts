@@ -1,5 +1,4 @@
 import { ProjectListEntry } from "../projectListEntries/types.js";
-import { Accessibility, ArchitectApproval, CommunityVetted, Project, ProjectStage, ProjectType } from "../projects/types.js";
 import { FilterGroup } from "../types/filter.js";
 
 export interface ProjectList {
@@ -10,10 +9,16 @@ export interface ProjectList {
     is_active: boolean;
 }
 
-export interface ProjectListWithEntries extends ProjectList {
+export interface ProjectListWithRelations extends ProjectList {
     entries: ProjectListEntry[];
+    tags: ProjectListTag[];
 }
 
-export interface ProjectListEntryWithProject extends ProjectListEntry {
-    project: Project;
+export interface ProjectListTag {
+    id: number;
+    project_list_id: number;
+    name: string;
+    filters: FilterGroup;
+    created_at: string;
+    updated_at: string;
 }
