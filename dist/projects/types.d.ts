@@ -78,8 +78,6 @@ export interface ProjectLink {
     url: string;
     label: string;
 }
-export interface ProjectList {
-}
 export declare enum ProjectType {
     MMO = "mmo",
     SMP = "smp",
