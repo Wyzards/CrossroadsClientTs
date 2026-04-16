@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Accessibility = exports.ArchitectApprovalLabels = exports.ArchitectApproval = exports.CommunityVettedHelper = exports.CommunityVettedLabels = exports.CommunityVetted = exports.ProjectStageHelper = exports.ProjectStageLabels = exports.ProjectStage = exports.ProjectTypeHelper = exports.ProjectTypeLabels = exports.ProjectType = exports.ProjectStaffRankHelper = exports.ProjectStaffRank = void 0;
+exports.AccessibilityHelper = exports.AccessibilityLabels = exports.Accessibility = exports.ArchitectApprovalHelper = exports.ArchitectApprovalLabels = exports.ArchitectApproval = exports.CommunityVettedHelper = exports.CommunityVettedLabels = exports.CommunityVetted = exports.ProjectStageHelper = exports.ProjectStageLabels = exports.ProjectStage = exports.ProjectTypeHelper = exports.ProjectTypeLabels = exports.ProjectType = exports.ProjectStaffRankHelper = exports.ProjectStaffRank = void 0;
 exports.createEnumHelper = createEnumHelper;
 var ProjectStaffRank;
 (function (ProjectStaffRank) {
@@ -81,6 +81,7 @@ exports.ArchitectApprovalLabels = {
     [ArchitectApproval.DISQUALIFIED]: "Disqualified",
     [ArchitectApproval.HIDDEN]: "Hidden",
 };
+exports.ArchitectApprovalHelper = createEnumHelper(ArchitectApproval, exports.ArchitectApprovalLabels);
 var Accessibility;
 (function (Accessibility) {
     Accessibility["PUBLIC"] = "public";
@@ -88,6 +89,13 @@ var Accessibility;
     Accessibility["EXCLUSIVE"] = "exclusive";
     Accessibility["CLOSED"] = "closed";
 })(Accessibility || (exports.Accessibility = Accessibility = {}));
+exports.AccessibilityLabels = {
+    [Accessibility.PUBLIC]: "Public",
+    [Accessibility.PAID]: "Paid",
+    [Accessibility.EXCLUSIVE]: "Exclusive",
+    [Accessibility.CLOSED]: "Closed",
+};
+exports.AccessibilityHelper = createEnumHelper(Accessibility, exports.AccessibilityLabels);
 function createEnumHelper(enumObj, labels) {
     return {
         values: () => Object.values(enumObj),

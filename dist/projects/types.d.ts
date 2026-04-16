@@ -120,12 +120,21 @@ export declare enum ArchitectApproval {
     HIDDEN = "hidden"
 }
 export declare const ArchitectApprovalLabels: Record<ArchitectApproval, string>;
+export declare const ArchitectApprovalHelper: {
+    values: () => string[];
+    pretty: (value: ArchitectApproval) => string;
+};
 export declare enum Accessibility {
     PUBLIC = "public",
     PAID = "paid",
     EXCLUSIVE = "exclusive",
     CLOSED = "closed"
 }
+export declare const AccessibilityLabels: Record<Accessibility, string>;
+export declare const AccessibilityHelper: {
+    values: () => string[];
+    pretty: (value: Accessibility) => string;
+};
 export declare function createEnumHelper<T extends Record<string, string>>(enumObj: T, labels: Record<T[keyof T], string>): {
     values: () => string[];
     pretty: (value: T[keyof T]) => Record<T[keyof T], string>[T[keyof T]];

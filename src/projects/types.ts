@@ -166,12 +166,23 @@ export const ArchitectApprovalLabels: Record<ArchitectApproval, string> = {
     [ArchitectApproval.HIDDEN]: "Hidden",
 }
 
+export const ArchitectApprovalHelper = createEnumHelper(ArchitectApproval, ArchitectApprovalLabels);
+
 export enum Accessibility {
     PUBLIC = 'public',
     PAID = 'paid',
     EXCLUSIVE = 'exclusive',
     CLOSED = 'closed'
 }
+
+export const AccessibilityLabels: Record<Accessibility, string> = {
+    [Accessibility.PUBLIC]: "Public",
+    [Accessibility.PAID]: "Paid",
+    [Accessibility.EXCLUSIVE]: "Exclusive",
+    [Accessibility.CLOSED]: "Closed",
+}
+
+export const AccessibilityHelper = createEnumHelper(Accessibility, AccessibilityLabels);
 
 export function createEnumHelper<T extends Record<string, string>>(
     enumObj: T,
