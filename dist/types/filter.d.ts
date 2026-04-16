@@ -8,6 +8,7 @@ export type FilterGroup = {
     all?: (FilterRule | FilterGroup)[];
     any?: (FilterRule | FilterGroup)[];
 };
+export type FilterOperator = '=' | '!=';
 export type FilterField = "architect_approval" | "community_vetted" | "project_stage" | "accessibility" | "type";
 export type FilterValue = ArchitectApproval | CommunityVetted | ProjectStage | Accessibility | ProjectType;
 //# sourceMappingURL=filter.d.ts.map
