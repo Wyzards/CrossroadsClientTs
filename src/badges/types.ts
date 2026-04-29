@@ -67,3 +67,7 @@ export interface TriggerXpEventRequest {
     user_id: number
     xp_event_definition_id: number
 }
+
+export interface SystemChannels {
+    achievements_channel_id: string;
+}
