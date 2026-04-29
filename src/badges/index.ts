@@ -3,7 +3,12 @@ import { HttpClient } from "../httpClient.js";
 import {
     Badge,
     UserProfile,
-    Era
+    Era,
+    SystemChannels,
+    CreateBadgePayload,
+    UpdateBadgePayload,
+    UserBadge,
+    UserXpEvent
 } from "./types.js";
 
 export class BadgesApi {
@@ -30,11 +35,11 @@ export class BadgesApi {
         return this.http.get<Badge[]>(`/badges`);
     }
 
-    createBadge(data: Partial<Badge>): Promise<Badge> {
+    createBadge(data: CreateBadgePayload): Promise<Badge> {
         return this.http.post<Badge>(`/badges`, data);
     }
 
-    updateBadge(id: number, data: Partial<Badge>): Promise<Badge> {
+    updateBadge(id: number, data: UpdateBadgePayload): Promise<Badge> {
         return this.http.put<Badge>(`/badges/${id}`, data);
     }
 
@@ -42,7 +47,7 @@ export class BadgesApi {
     // User Badges
     // ========================
 
-    assignBadge(userId: number, badgeId: number): Promise<any> {
+    assignBadge(userId: number, badgeId: number): Promise<UserBadge> {
         return this.http.post(
             `/crossroads-users/${userId}/badges/${badgeId}`,
             {}
@@ -59,7 +64,7 @@ export class BadgesApi {
     // XP
     // ========================
 
-    triggerXpEvent(userId: number, eventId: number): Promise<any> {
+    triggerXpEvent(userId: number, eventId: number): Promise<UserXpEvent> {
         return this.http.post(
             `/xp-events/trigger`,
             {
@@ -103,11 +108,11 @@ export class BadgesApi {
     // System Channels
     // ========================
 
-    getSystemChannels(): Promise<any> {
+    getSystemChannels(): Promise<SystemChannels> {
         return this.http.get(`/system/channels`);
     }
 
-    setSystemChannels(data: any): Promise<any> {
+    setSystemChannels(data: SystemChannels): Promise<SystemChannels> {
         return this.http.post(`/system/channels`, data);
     }
 }

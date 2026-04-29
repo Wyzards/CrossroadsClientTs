@@ -8,6 +8,9 @@ export interface Era {
     ended_at: string | null
 }
 
+export type CreateBadgePayload = Omit<Badge, 'id'>
+export type UpdateBadgePayload = Partial<CreateBadgePayload>;
+
 export interface Badge {
     id: number
     name: string
@@ -61,6 +64,12 @@ export interface XpEventDefinition {
     xp_amount: number
     cooldown_seconds: number
     badge: Badge
+}
+
+export interface UserXpEvent {
+    user_id: number
+    xp_event_definition_id: number
+    xp_amount: number
 }
 
 export interface TriggerXpEventRequest {
