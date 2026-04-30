@@ -17,7 +17,7 @@ export class CrossroadsApiClient {
     public projects: ProjectsApi;
     public projectLists: ProjectListsApi;
     public projectListEntries: ProjectListEntriesApi;
-    public badgeApi: BadgesApi;
+    public badges: BadgesApi;
 
     constructor(baseURL: string, token: string) {
         const http: HttpClient = new HttpClient(baseURL, token);
@@ -28,7 +28,7 @@ export class CrossroadsApiClient {
         this.projects = new ProjectsApi(http);
         this.projectLists = new ProjectListsApi(http);
         this.projectListEntries = new ProjectListEntriesApi(http);
-        this.badgeApi = new BadgesApi(http);
+        this.badges = new BadgesApi(http);
     }
 
     async setProjectStaffByDiscordId(

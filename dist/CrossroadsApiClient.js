@@ -19,7 +19,7 @@ class CrossroadsApiClient {
         this.projects = new projects_1.ProjectsApi(http);
         this.projectLists = new index_js_3.ProjectListsApi(http);
         this.projectListEntries = new index_js_2.ProjectListEntriesApi(http);
-        this.badgeApi = new index_js_1.BadgesApi(http);
+        this.badges = new index_js_1.BadgesApi(http);
     }
     async setProjectStaffByDiscordId(projectId, discordId, rank) {
         let user;
