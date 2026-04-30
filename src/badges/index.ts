@@ -9,7 +9,8 @@ import {
     UpdateBadgePayload,
     UserBadge,
     UserXpEvent,
-    XpEventDefinition
+    XpEventDefinition,
+    UserBadgeXp
 } from "./types.js";
 
 export class BadgesApi {
@@ -65,7 +66,7 @@ export class BadgesApi {
     // XP
     // ========================
 
-    triggerXpEvent(userId: number, eventId: number): Promise<UserXpEvent> {
+    triggerXpEvent(userId: number, eventId: number): Promise<UserBadgeXp> {
         return this.http.post(
             `/xp-events/trigger`,
             {

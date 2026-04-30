@@ -1,5 +1,5 @@
 import { HttpClient } from "../httpClient.js";
-import { Badge, UserProfile, Era, SystemChannels, CreateBadgePayload, UpdateBadgePayload, UserBadge, UserXpEvent, XpEventDefinition } from "./types.js";
+import { Badge, UserProfile, Era, SystemChannels, CreateBadgePayload, UpdateBadgePayload, UserBadge, XpEventDefinition, UserBadgeXp } from "./types.js";
 export declare class BadgesApi {
     private http;
     constructor(http: HttpClient);
@@ -9,7 +9,7 @@ export declare class BadgesApi {
     updateBadge(id: number, data: UpdateBadgePayload): Promise<Badge>;
     assignBadge(userId: number, badgeId: number): Promise<UserBadge>;
     removeBadge(userId: number, badgeId: number): Promise<boolean>;
-    triggerXpEvent(userId: number, eventId: number): Promise<UserXpEvent>;
+    triggerXpEvent(userId: number, eventId: number): Promise<UserBadgeXp>;
     getXpEventDefinitions(): Promise<XpEventDefinition[]>;
     createXpEventDefinition(data: {
         name: string;
