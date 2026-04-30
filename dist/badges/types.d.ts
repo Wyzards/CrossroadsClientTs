@@ -13,11 +13,13 @@ export interface Badge {
     id: number;
     name: string;
     description?: string;
-    category: 'progression' | 'community' | 'achievement' | 'artifact';
+    category: BadgeCategory;
     is_xp_based: boolean;
-    rarity?: 'common' | 'uncommon' | 'rare' | 'legendary';
+    rarity?: BadgeRarity;
     is_active: boolean;
 }
+export type BadgeCategory = 'progression' | 'community' | 'achievement' | 'artifact';
+export type BadgeRarity = 'common' | 'uncommon' | 'rare' | 'legendary';
 export interface UserBadge {
     id: number;
     earned_at: string;
