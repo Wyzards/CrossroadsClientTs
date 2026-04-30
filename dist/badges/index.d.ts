@@ -25,7 +25,14 @@ export declare class BadgesApi {
     }>): Promise<XpEventDefinition>;
     deleteXpEventDefinition(id: number): Promise<boolean>;
     getEras(): Promise<Era[]>;
-    createEra(name: string): Promise<Era>;
+    createEra(data: {
+        name: string;
+        role_id: string;
+    }): Promise<Era>;
+    updateEra(id: number, data: Partial<{
+        name: string;
+        role_id: string | null;
+    }>): Promise<Era>;
     activateEra(id: number): Promise<Era>;
     getSystemChannels(): Promise<SystemChannels>;
     setSystemChannels(data: SystemChannels): Promise<SystemChannels>;
