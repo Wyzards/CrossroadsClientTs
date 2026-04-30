@@ -1,5 +1,5 @@
 import { HttpClient } from "../httpClient.js";
-import { Badge, UserProfile, Era, SystemChannels, CreateBadgePayload, UpdateBadgePayload, UserBadge, UserXpEvent } from "./types.js";
+import { Badge, UserProfile, Era, SystemChannels, CreateBadgePayload, UpdateBadgePayload, UserBadge, UserXpEvent, XpEventDefinition } from "./types.js";
 export declare class BadgesApi {
     private http;
     constructor(http: HttpClient);
@@ -10,8 +10,20 @@ export declare class BadgesApi {
     assignBadge(userId: number, badgeId: number): Promise<UserBadge>;
     removeBadge(userId: number, badgeId: number): Promise<boolean>;
     triggerXpEvent(userId: number, eventId: number): Promise<UserXpEvent>;
-    recalculateUserXp(userId: number): Promise<boolean>;
-    recalculateBadgeXp(badgeId: number): Promise<boolean>;
+    getXpEventDefinitions(): Promise<XpEventDefinition[]>;
+    createXpEventDefinition(data: {
+        name: string;
+        badge_id: number;
+        xp_amount: number;
+        cooldown_seconds: number;
+    }): Promise<XpEventDefinition>;
+    updateXpEventDefinition(id: number, data: Partial<{
+        name: string;
+        badge_id: number;
+        xp_amount: number;
+        cooldown_seconds: number;
+    }>): Promise<XpEventDefinition>;
+    deleteXpEventDefinition(id: number): Promise<boolean>;
     getEras(): Promise<Era[]>;
     createEra(name: string): Promise<Era>;
     activateEra(id: number): Promise<Era>;

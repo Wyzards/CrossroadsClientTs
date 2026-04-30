@@ -8,7 +8,8 @@ import {
     CreateBadgePayload,
     UpdateBadgePayload,
     UserBadge,
-    UserXpEvent
+    UserXpEvent,
+    XpEventDefinition
 } from "./types.js";
 
 export class BadgesApi {
@@ -74,17 +75,46 @@ export class BadgesApi {
         );
     }
 
-    recalculateUserXp(userId: number): Promise<boolean> {
-        return this.http.post(
-            `/xp/recalculate/user/${userId}`,
-            {}
+    // ----------------------------
+    // XP EVENT DEFINITIONS
+    // ----------------------------
+
+    getXpEventDefinitions(): Promise<XpEventDefinition[]> {
+        return this.http.get(
+            `/xp-event-definitions`
         );
     }
 
-    recalculateBadgeXp(badgeId: number): Promise<boolean> {
+    createXpEventDefinition(data: {
+        name: string
+        badge_id: number
+        xp_amount: number
+        cooldown_seconds: number
+    }): Promise<XpEventDefinition> {
         return this.http.post(
-            `/xp/recalculate/badge/${badgeId}`,
-            {}
+            `/xp-event-definitions`,
+            data
+        );
+    }
+
+    updateXpEventDefinition(
+        id: number,
+        data: Partial<{
+            name: string
+            badge_id: number
+            xp_amount: number
+            cooldown_seconds: number
+        }>
+    ): Promise<XpEventDefinition> {
+        return this.http.put(
+            `/xp-event-definitions/${id}`,
+            data
+        );
+    }
+
+    deleteXpEventDefinition(id: number): Promise<boolean> {
+        return this.http.delete(
+            `/xp-event-definitions/${id}`
         );
     }
 

@@ -49,11 +49,20 @@ class BadgesApi {
             xp_event_definition_id: eventId
         });
     }
-    recalculateUserXp(userId) {
-        return this.http.post(`/xp/recalculate/user/${userId}`, {});
+    // ----------------------------
+    // XP EVENT DEFINITIONS
+    // ----------------------------
+    getXpEventDefinitions() {
+        return this.http.get(`/xp-event-definitions`);
     }
-    recalculateBadgeXp(badgeId) {
-        return this.http.post(`/xp/recalculate/badge/${badgeId}`, {});
+    createXpEventDefinition(data) {
+        return this.http.post(`/xp-event-definitions`, data);
+    }
+    updateXpEventDefinition(id, data) {
+        return this.http.put(`/xp-event-definitions/${id}`, data);
+    }
+    deleteXpEventDefinition(id) {
+        return this.http.delete(`/xp-event-definitions/${id}`);
     }
     // ========================
     // Eras
