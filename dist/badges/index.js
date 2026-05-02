@@ -67,11 +67,18 @@ class BadgesApi {
     // ========================
     // Eras
     // ========================
-    getEras() {
+    async getEras() {
         return this.http.get(`/eras`);
     }
-    getEra(id) {
-        return this.http.get(`/eras/${id}`);
+    async getEra(id) {
+        try {
+            return await this.http.get(`/eras/${id}`);
+        }
+        catch (err) {
+            if (err instanceof error_js_1.NotFoundError)
+                return null;
+            throw err;
+        }
     }
     createEra(data) {
         return this.http.post(`/eras`, data);

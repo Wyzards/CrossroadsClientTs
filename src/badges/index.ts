@@ -123,12 +123,17 @@ export class BadgesApi {
     // Eras
     // ========================
 
-    getEras(): Promise<Era[]> {
+    async getEras(): Promise<Era[]> {
         return this.http.get<Era[]>(`/eras`);
     }
 
-    getEra(id: number): Promise<Era> {
-        return this.http.get<Era>(`/eras/${id}`);
+    async getEra(id: number): Promise<Era | null> {
+        try {
+            return await this.http.get<Era>(`/eras/${id}`);
+        } catch (err) {
+            if (err instanceof NotFoundError) return null;
+            throw err;
+        }
     }
 
     createEra(data: { name: string, role_id: string }): Promise<Era> {
