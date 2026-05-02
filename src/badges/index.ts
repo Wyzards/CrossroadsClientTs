@@ -127,6 +127,10 @@ export class BadgesApi {
         return this.http.get<Era[]>(`/eras`);
     }
 
+    getEra(id: number): Promise<Era> {
+        return this.http.get<Era>(`/eras/${id}`);
+    }
+
     createEra(data: { name: string, role_id: string }): Promise<Era> {
         return this.http.post<Era>(`/eras`, data);
     }

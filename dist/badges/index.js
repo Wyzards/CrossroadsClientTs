@@ -70,6 +70,9 @@ class BadgesApi {
     getEras() {
         return this.http.get(`/eras`);
     }
+    getEra(id) {
+        return this.http.get(`/eras/${id}`);
+    }
     createEra(data) {
         return this.http.post(`/eras`, data);
     }

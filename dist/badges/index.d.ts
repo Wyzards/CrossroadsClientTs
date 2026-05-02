@@ -25,6 +25,7 @@ export declare class BadgesApi {
     }>): Promise<XpEventDefinition>;
     deleteXpEventDefinition(id: number): Promise<boolean>;
     getEras(): Promise<Era[]>;
+    getEra(id: number): Promise<Era>;
     createEra(data: {
         name: string;
         role_id: string;
