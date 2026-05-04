@@ -1,5 +1,5 @@
 import { HttpClient } from "../httpClient.js";
-import { CrossroadsUser, CreateCrossroadsUserPayload } from "./types";
+import { CrossroadsUser, CreateCrossroadsUserPayload, UserProfile } from "./types";
 export declare class CrossroadsUsersApi {
     private http;
     constructor(http: HttpClient);
@@ -9,5 +9,6 @@ export declare class CrossroadsUsersApi {
     delete(id: number): Promise<unknown>;
     findByMinecraftUuid(uuid: string): Promise<CrossroadsUser>;
     findByDiscordId(discordId: string): Promise<CrossroadsUser>;
+    getProfile(userId: number): Promise<UserProfile | null>;
 }
 //# sourceMappingURL=index.d.ts.map

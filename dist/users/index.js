@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CrossroadsUsersApi = void 0;
+const error_js_1 = require("../error.js");
 class CrossroadsUsersApi {
     constructor(http) {
         this.http = http;
@@ -25,6 +26,16 @@ class CrossroadsUsersApi {
     }
     findByDiscordId(discordId) {
         return this.http.get(`/crossroads-users/discord/${discordId}`);
+    }
+    async getProfile(userId) {
+        try {
+            return await this.http.get(`/crossroads-users/${userId}/profile`);
+        }
+        catch (err) {
+            if (err instanceof error_js_1.NotFoundError)
+                return null;
+            throw err;
+        }
     }
 }
 exports.CrossroadsUsersApi = CrossroadsUsersApi;
