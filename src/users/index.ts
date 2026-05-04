@@ -1,5 +1,6 @@
+import { NotFoundError } from "../error.js";
 import { HttpClient } from "../httpClient.js";
-import { CrossroadsUser, CreateCrossroadsUserPayload } from "./types";
+import { CrossroadsUser, CreateCrossroadsUserPayload, UserProfile } from "./types";
 
 export class CrossroadsUsersApi {
     constructor(private http: HttpClient) { }
@@ -29,5 +30,14 @@ export class CrossroadsUsersApi {
 
     findByDiscordId(discordId: string) {
         return this.http.get<CrossroadsUser>(`/crossroads-users/discord/${discordId}`);
+    }
+
+    async getProfile(userId: number): Promise<UserProfile | null> {
+        try {
+            return await this.http.get<UserProfile>(`/crossroads-users/${userId}/profile`);
+        } catch (err) {
+            if (err instanceof NotFoundError) return null;
+            throw err;
+        }
     }
 }

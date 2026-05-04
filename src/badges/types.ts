@@ -1,14 +1,5 @@
 import { CrossroadsUser } from "../users/types.js"
 
-export interface Era {
-    id: number
-    name: string
-    is_active: boolean
-    started_at: string | null
-    ended_at: string | null
-    role_id: string | null
-}
-
 export type CreateBadgePayload = Omit<Badge, 'id'>
 export type UpdateBadgePayload = Partial<CreateBadgePayload>;
 
@@ -40,21 +31,7 @@ export interface UserBadgeXp {
     badge: Badge
 }
 
-export interface UserProfile {
-    user: CrossroadsUser
-    era: Era | null
 
-    badges: {
-        artifact: UserBadge[]
-        achievement: UserBadge[]
-        community: UserBadge[]
-        progression: UserBadge[]
-    }
-
-    progression: UserBadgeXp[]
-
-    subscription: UserSubscription | null
-}
 
 export interface UserSubscription {
     started_at: string

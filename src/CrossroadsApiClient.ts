@@ -1,4 +1,5 @@
 import { BadgesApi } from "./badges/index.js";
+import { ErasApi } from "./eras/index.js";
 import { NotFoundError } from "./error.js";
 import { HttpClient } from "./httpClient";
 import { MapInstancesApi } from "./mapInstances";
@@ -9,6 +10,7 @@ import { ProjectsApi } from "./projects";
 import { ProjectStaff, ProjectStaffRank } from "./projects/types.js";
 import { CrossroadsUsersApi } from "./users";
 import { CrossroadsUser } from "./users/types.js";
+import { XpApi } from "./xp/index.js";
 
 export class CrossroadsApiClient {
     public maps: MapsApi;
@@ -18,6 +20,8 @@ export class CrossroadsApiClient {
     public projectLists: ProjectListsApi;
     public projectListEntries: ProjectListEntriesApi;
     public badges: BadgesApi;
+    public eras: ErasApi;
+    public xp: XpApi;
 
     constructor(baseURL: string, token: string) {
         const http: HttpClient = new HttpClient(baseURL, token);
@@ -29,6 +33,8 @@ export class CrossroadsApiClient {
         this.projectLists = new ProjectListsApi(http);
         this.projectListEntries = new ProjectListEntriesApi(http);
         this.badges = new BadgesApi(http);
+        this.eras = new ErasApi(http);
+        this.xp = new XpApi(http);
     }
 
     async setProjectStaffByDiscordId(
