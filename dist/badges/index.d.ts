@@ -4,6 +4,7 @@ export declare class BadgesApi {
     private http;
     constructor(http: HttpClient);
     getBadges(): Promise<Badge[]>;
+    getBadge(id: number): Promise<Badge | null>;
     createBadge(data: CreateBadgePayload): Promise<Badge>;
     updateBadge(id: number, data: UpdateBadgePayload): Promise<Badge>;
     assignBadge(userId: number, badgeId: number): Promise<UserBadge>;

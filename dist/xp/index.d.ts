@@ -5,7 +5,7 @@ export declare class XpApi {
     constructor(http: HttpClient);
     triggerXpEvent(userId: number, eventId: number): Promise<UserBadgeXp>;
     getXpEventDefinitions(): Promise<XpEventDefinition[]>;
-    getXpEventDefinition(id: number): Promise<XpEventDefinition>;
+    getXpEventDefinition(id: number): Promise<XpEventDefinition | null>;
     createXpEventDefinition(data: {
         name: string;
         badge_id: number;

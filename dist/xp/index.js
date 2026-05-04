@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.XpApi = void 0;
+const error_js_1 = require("../error.js");
 class XpApi {
     constructor(http) {
         this.http = http;
@@ -14,8 +15,15 @@ class XpApi {
     getXpEventDefinitions() {
         return this.http.get(`/xp-event-definitions`);
     }
-    getXpEventDefinition(id) {
-        return this.http.get(`/xp-event-definition/${id}`);
+    async getXpEventDefinition(id) {
+        try {
+            return await this.http.get(`/xp-event-definition/${id}`);
+        }
+        catch (err) {
+            if (err instanceof error_js_1.NotFoundError)
+                return null;
+            throw err;
+        }
     }
     createXpEventDefinition(data) {
         return this.http.post(`/xp-event-definitions`, data);
