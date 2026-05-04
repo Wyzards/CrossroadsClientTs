@@ -5,7 +5,7 @@ export class XpApi {
     constructor(private http: HttpClient) { }
 
     triggerXpEvent(userId: number, eventId: number): Promise<UserBadgeXp> {
-        return this.http.post(
+        return this.http.post<UserBadgeXp>(
             `/xp-events/trigger`,
             {
                 user_id: userId,
@@ -15,13 +15,13 @@ export class XpApi {
     }
 
     getXpEventDefinitions(): Promise<XpEventDefinition[]> {
-        return this.http.get(
+        return this.http.get<XpEventDefinition[]>(
             `/xp-event-definitions`
         );
     }
 
     getXpEventDefinition(id: number): Promise<XpEventDefinition> {
-        return this.http.get(
+        return this.http.get<XpEventDefinition>(
             `/xp-event-definition/${id}`
         );
     }
@@ -32,7 +32,7 @@ export class XpApi {
         xp_amount: number
         cooldown_seconds: number
     }): Promise<XpEventDefinition> {
-        return this.http.post(
+        return this.http.post<XpEventDefinition>(
             `/xp-event-definitions`,
             data
         );

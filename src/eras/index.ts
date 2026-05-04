@@ -23,7 +23,7 @@ export class ErasApi {
     }
 
     updateEra(id: number, data: Partial<{ name: string, role_id: string | null }>): Promise<Era> {
-        return this.http.put(`/eras/${id}`, data);
+        return this.http.put<Era>(`/eras/${id}`, data);
     }
 
     activateEra(id: number): Promise<Era> {

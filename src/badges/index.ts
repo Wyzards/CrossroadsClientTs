@@ -23,7 +23,7 @@ export class BadgesApi {
     }
 
     assignBadge(userId: number, badgeId: number): Promise<UserBadge> {
-        return this.http.post(
+        return this.http.post<UserBadge>(
             `/crossroads-users/${userId}/badges/${badgeId}`,
             {}
         );
@@ -36,10 +36,10 @@ export class BadgesApi {
     }
 
     getSystemChannels(): Promise<SystemChannels> {
-        return this.http.get(`/system/channels`);
+        return this.http.get<SystemChannels>(`/system/channels`);
     }
 
     setSystemChannels(data: SystemChannels): Promise<SystemChannels> {
-        return this.http.post(`/system/channels`, data);
+        return this.http.post<SystemChannels>(`/system/channels`, data);
     }
 }
