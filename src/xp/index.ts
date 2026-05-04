@@ -1,4 +1,5 @@
 import { UserBadgeXp, XpEventDefinition } from "../badges/types.js";
+import { NotFoundError } from "../error.js";
 import { HttpClient } from "../httpClient.js"
 
 export class XpApi {
@@ -20,10 +21,15 @@ export class XpApi {
         );
     }
 
-    getXpEventDefinition(id: number): Promise<XpEventDefinition> {
-        return this.http.get<XpEventDefinition>(
-            `/xp-event-definition/${id}`
-        );
+    async getXpEventDefinition(id: number): Promise<XpEventDefinition | null> {
+        try {
+            return await this.http.get<XpEventDefinition>(
+                `/xp-event-definition/${id}`
+            );
+        } catch (err) {
+            if (err instanceof NotFoundError) return null;
+            throw err;
+        }
     }
 
     createXpEventDefinition(data: {

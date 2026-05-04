@@ -1,3 +1,4 @@
+import { NotFoundError } from "../error.js";
 import { HttpClient } from "../httpClient.js";
 import {
     Badge,
@@ -12,6 +13,15 @@ export class BadgesApi {
 
     getBadges(): Promise<Badge[]> {
         return this.http.get<Badge[]>(`/badges`);
+    }
+
+    async getBadge(id: number): Promise<Badge | null> {
+        try {
+            return await this.http.get<Badge>(`/badges/${id}`);
+        } catch (err) {
+            if (err instanceof NotFoundError) return null;
+            throw err;
+        }
     }
 
     createBadge(data: CreateBadgePayload): Promise<Badge> {
