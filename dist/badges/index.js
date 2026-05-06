@@ -31,6 +31,12 @@ class BadgesApi {
     removeBadge(userId, badgeId) {
         return this.http.delete(`/crossroads-users/${userId}/badges/${badgeId}`);
     }
+    getBadgeProgression(badgeId) {
+        return this.http.get(`/badges/${badgeId}/progression`);
+    }
+    updateBadgeProgression(badgeId, data) {
+        return this.http.put(`/badges/${badgeId}/progression`, data);
+    }
     getSystemChannels() {
         return this.http.get(`/system/channels`);
     }

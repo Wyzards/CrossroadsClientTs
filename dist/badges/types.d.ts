@@ -9,6 +9,13 @@ export interface Badge {
     rarity?: BadgeRarity;
     is_active: boolean;
 }
+export interface BadgeProgression {
+    badge_id: number;
+    base_xp: number;
+    growth_factor: number;
+    curve_type: ProgressionCurveType;
+}
+export type ProgressionCurveType = 'linear' | 'exponential';
 export type BadgeCategory = 'progression' | 'community' | 'achievement' | 'artifact';
 export type BadgeRarity = 'common' | 'uncommon' | 'rare' | 'legendary';
 export interface UserBadge {

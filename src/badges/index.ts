@@ -2,7 +2,9 @@ import { NotFoundError } from "../error.js";
 import { HttpClient } from "../httpClient.js";
 import {
     Badge,
+    BadgeProgression,
     CreateBadgePayload,
+    ProgressionCurveType,
     SystemChannels,
     UpdateBadgePayload,
     UserBadge
@@ -42,6 +44,19 @@ export class BadgesApi {
     removeBadge(userId: number, badgeId: number): Promise<boolean> {
         return this.http.delete(
             `/crossroads-users/${userId}/badges/${badgeId}`
+        );
+    }
+
+    getBadgeProgression(badgeId: number): Promise<BadgeProgression> {
+        return this.http.get<BadgeProgression>(
+            `/badges/${badgeId}/progression`
+        );
+    }
+
+    updateBadgeProgression(badgeId: number, data: { curve_type: ProgressionCurveType, base_xp: number, growth_rate: number }) {
+        return this.http.put<BadgeProgression>(
+            `/badges/${badgeId}/progression`,
+            data
         );
     }
 
