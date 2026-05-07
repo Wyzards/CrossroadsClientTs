@@ -53,7 +53,7 @@ export class BadgesApi {
         );
     }
 
-    updateBadgeProgression(badgeId: number, data: { curve_type: ProgressionCurveType, base_xp: number, growth_rate: number }) {
+    updateBadgeProgression(badgeId: number, data: { curve_type: ProgressionCurveType, base_xp: number, growth_factor: number }) {
         return this.http.put<BadgeProgression>(
             `/badges/${badgeId}/progression`,
             data

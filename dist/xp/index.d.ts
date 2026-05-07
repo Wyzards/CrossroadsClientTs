@@ -1,5 +1,6 @@
-import { UserBadgeXp, XpEventDefinition } from "../badges/types.js";
+import { UserBadgeXp } from "../badges/types.js";
 import { HttpClient } from "../httpClient.js";
+import { XpEventDefinition } from "./types.js";
 export declare class XpApi {
     private http;
     constructor(http: HttpClient);

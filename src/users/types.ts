@@ -28,3 +28,10 @@ export interface UserProfile {
 
     subscription: UserSubscription | null
 }
+
+export interface UserSubscription {
+    started_at: string
+    total_months: number
+    current_streak: number
+    is_active: boolean
+}

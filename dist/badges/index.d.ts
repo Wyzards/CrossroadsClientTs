@@ -13,7 +13,7 @@ export declare class BadgesApi {
     updateBadgeProgression(badgeId: number, data: {
         curve_type: ProgressionCurveType;
         base_xp: number;
-        growth_rate: number;
+        growth_factor: number;
     }): Promise<BadgeProgression>;
     getSystemChannels(): Promise<SystemChannels>;
     setSystemChannels(data: SystemChannels): Promise<SystemChannels>;
