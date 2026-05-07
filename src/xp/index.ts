@@ -24,7 +24,7 @@ export class XpApi {
     async getXpEventDefinition(id: number): Promise<XpEventDefinition | null> {
         try {
             return await this.http.get<XpEventDefinition>(
-                `/xp-event-definition/${id}`
+                `/xp-event-definitions/${id}`
             );
         } catch (err) {
             if (err instanceof NotFoundError) return null;

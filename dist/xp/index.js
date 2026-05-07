@@ -17,7 +17,7 @@ class XpApi {
     }
     async getXpEventDefinition(id) {
         try {
-            return await this.http.get(`/xp-event-definition/${id}`);
+            return await this.http.get(`/xp-event-definitions/${id}`);
         }
         catch (err) {
             if (err instanceof error_js_1.NotFoundError)
