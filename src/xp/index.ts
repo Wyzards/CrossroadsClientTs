@@ -7,7 +7,7 @@ export class XpApi {
 
     triggerXpEvent(userId: number, eventId: number): Promise<UserBadgeXp> {
         return this.http.post<UserBadgeXp>(
-            `/xp-events/trigger`,
+            `/crossroads-users/${userId}/xp-events/${eventId}/trigger`,
             {
                 user_id: userId,
                 xp_event_definition_id: eventId

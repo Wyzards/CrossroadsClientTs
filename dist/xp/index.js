@@ -7,7 +7,7 @@ class XpApi {
         this.http = http;
     }
     triggerXpEvent(userId, eventId) {
-        return this.http.post(`/xp-events/trigger`, {
+        return this.http.post(`/crossroads-users/${userId}/xp-events/${eventId}/trigger`, {
             user_id: userId,
             xp_event_definition_id: eventId
         });
