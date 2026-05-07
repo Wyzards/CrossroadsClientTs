@@ -25,8 +25,9 @@ class ErasApi {
     updateEra(id, data) {
         return this.http.put(`/eras/${id}`, data);
     }
-    activateEra(id) {
-        return this.http.post(`/eras/${id}/activate`, {});
+    async activateEra(id) {
+        const response = await this.http.post(`/eras/${id}/activate`, {});
+        return response.affected_users;
     }
 }
 exports.ErasApi = ErasApi;

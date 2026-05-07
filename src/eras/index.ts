@@ -1,5 +1,6 @@
 import { NotFoundError } from "../error.js";
 import { HttpClient } from "../httpClient.js";
+import { CrossroadsUser } from "../users/types.js";
 import { Era } from "./type.js";
 
 export class ErasApi {
@@ -26,7 +27,9 @@ export class ErasApi {
         return this.http.put<Era>(`/eras/${id}`, data);
     }
 
-    activateEra(id: number): Promise<Era> {
-        return this.http.post<Era>(`/eras/${id}/activate`, {});
+    async activateEra(id: number): Promise<CrossroadsUser[]> {
+        const response = await this.http.post<{ affected_users: CrossroadsUser[] }>(`/eras/${id}/activate`, {});
+
+        return response.affected_users;
     }
 }

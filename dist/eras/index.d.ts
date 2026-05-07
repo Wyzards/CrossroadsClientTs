@@ -1,4 +1,5 @@
 import { HttpClient } from "../httpClient.js";
+import { CrossroadsUser } from "../users/types.js";
 import { Era } from "./type.js";
 export declare class ErasApi {
     private http;
@@ -13,6 +14,6 @@ export declare class ErasApi {
         name: string;
         role_id: string | null;
     }>): Promise<Era>;
-    activateEra(id: number): Promise<Era>;
+    activateEra(id: number): Promise<CrossroadsUser[]>;
 }
 //# sourceMappingURL=index.d.ts.map
