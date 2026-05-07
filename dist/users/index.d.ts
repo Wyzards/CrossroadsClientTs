@@ -7,8 +7,8 @@ export declare class CrossroadsUsersApi {
     list(): Promise<CrossroadsUser[]>;
     get(id: number): Promise<CrossroadsUser>;
     delete(id: number): Promise<unknown>;
-    findByMinecraftUuid(uuid: string): Promise<CrossroadsUser>;
-    findByDiscordId(discordId: string): Promise<CrossroadsUser>;
+    findByMinecraftUuid(uuid: string): Promise<CrossroadsUser | null>;
+    findByDiscordId(discordId: string): Promise<CrossroadsUser | null>;
     getProfile(userId: number): Promise<UserProfile | null>;
 }
 //# sourceMappingURL=index.d.ts.map

@@ -5,18 +5,18 @@ import { CrossroadsUser, CreateCrossroadsUserPayload, UserProfile } from "./type
 export class CrossroadsUsersApi {
     constructor(private http: HttpClient) { }
 
-    create(payload: CreateCrossroadsUserPayload) {
+    create(payload: CreateCrossroadsUserPayload): Promise<CrossroadsUser> {
         return this.http.post<CrossroadsUser>(`/crossroads-users`, {
             minecraft_uuid: payload.minecraftUuid,
             discord_id: payload.discordId
         });
     }
 
-    list() {
+    list(): Promise<CrossroadsUser[]> {
         return this.http.get<CrossroadsUser[]>(`/crossroads-users`);
     }
 
-    get(id: number) {
+    get(id: number): Promise<CrossroadsUser> {
         return this.http.get<CrossroadsUser>(`/crossroads-users/${id}`);
     }
 
@@ -24,12 +24,22 @@ export class CrossroadsUsersApi {
         return this.http.delete(`/crossroads-users/${id}`);
     }
 
-    findByMinecraftUuid(uuid: string) {
-        return this.http.get<CrossroadsUser>(`/crossroads-users/minecraft/${uuid}`);
+    async findByMinecraftUuid(uuid: string): Promise<CrossroadsUser | null> {
+        try {
+            return await this.http.get<CrossroadsUser>(`/crossroads-users/minecraft/${uuid}`);
+        } catch (err) {
+            if (err instanceof NotFoundError) return null;
+            throw err;
+        }
     }
 
-    findByDiscordId(discordId: string) {
-        return this.http.get<CrossroadsUser>(`/crossroads-users/discord/${discordId}`);
+    async findByDiscordId(discordId: string): Promise<CrossroadsUser | null> {
+        try {
+            return await this.http.get<CrossroadsUser>(`/crossroads-users/discord/${discordId}`);
+        } catch (err) {
+            if (err instanceof NotFoundError) return null;
+            throw err;
+        }
     }
 
     async getProfile(userId: number): Promise<UserProfile | null> {

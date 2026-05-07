@@ -21,11 +21,25 @@ class CrossroadsUsersApi {
     delete(id) {
         return this.http.delete(`/crossroads-users/${id}`);
     }
-    findByMinecraftUuid(uuid) {
-        return this.http.get(`/crossroads-users/minecraft/${uuid}`);
+    async findByMinecraftUuid(uuid) {
+        try {
+            return await this.http.get(`/crossroads-users/minecraft/${uuid}`);
+        }
+        catch (err) {
+            if (err instanceof error_js_1.NotFoundError)
+                return null;
+            throw err;
+        }
     }
-    findByDiscordId(discordId) {
-        return this.http.get(`/crossroads-users/discord/${discordId}`);
+    async findByDiscordId(discordId) {
+        try {
+            return await this.http.get(`/crossroads-users/discord/${discordId}`);
+        }
+        catch (err) {
+            if (err instanceof error_js_1.NotFoundError)
+                return null;
+            throw err;
+        }
     }
     async getProfile(userId) {
         try {

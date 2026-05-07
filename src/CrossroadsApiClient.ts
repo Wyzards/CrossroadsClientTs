@@ -43,16 +43,10 @@ export class CrossroadsApiClient {
         rank: ProjectStaffRank
     ): Promise<ProjectStaff> {
 
-        let user: CrossroadsUser;
+        let user = await this.users.findByDiscordId(discordId);
 
-        try {
-            user = await this.users.findByDiscordId(discordId);
-        } catch (err) {
-            if (err instanceof NotFoundError) {
-                user = await this.users.create({ discordId });
-            } else {
-                throw err;
-            }
+        if (!user) {
+            user = await this.users.create({ discordId });
         }
 
         return this.projects.setStaff(projectId, user.id, rank);
@@ -63,17 +57,9 @@ export class CrossroadsApiClient {
         discordId: string
     ): Promise<boolean> {
 
-        let user: CrossroadsUser;
+        let user = await this.users.findByDiscordId(discordId);
 
-        try {
-            user = await this.users.findByDiscordId(discordId);
-        } catch (err) {
-            if (err instanceof NotFoundError) {
-                // User doesn't exist → cannot be staff
-                return false;
-            }
-            throw err;
-        }
+        if (!user) return false;
 
         return this.projects.removeStaff(projectId, user.id);
     }

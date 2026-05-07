@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CrossroadsApiClient = void 0;
 const index_js_1 = require("./badges/index.js");
 const index_js_2 = require("./eras/index.js");
-const error_js_1 = require("./error.js");
 const httpClient_1 = require("./httpClient");
 const mapInstances_1 = require("./mapInstances");
 const maps_1 = require("./maps");
@@ -26,32 +25,16 @@ class CrossroadsApiClient {
         this.xp = new index_js_5.XpApi(http);
     }
     async setProjectStaffByDiscordId(projectId, discordId, rank) {
-        let user;
-        try {
-            user = await this.users.findByDiscordId(discordId);
-        }
-        catch (err) {
-            if (err instanceof error_js_1.NotFoundError) {
-                user = await this.users.create({ discordId });
-            }
-            else {
-                throw err;
-            }
+        let user = await this.users.findByDiscordId(discordId);
+        if (!user) {
+            user = await this.users.create({ discordId });
         }
         return this.projects.setStaff(projectId, user.id, rank);
     }
     async removeProjectStaffByDiscordId(projectId, discordId) {
-        let user;
-        try {
-            user = await this.users.findByDiscordId(discordId);
-        }
-        catch (err) {
-            if (err instanceof error_js_1.NotFoundError) {
-                // User doesn't exist → cannot be staff
-                return false;
-            }
-            throw err;
-        }
+        let user = await this.users.findByDiscordId(discordId);
+        if (!user)
+            return false;
         return this.projects.removeStaff(projectId, user.id);
     }
 }
