@@ -1,4 +1,4 @@
-import { UserBadge, UserBadgeXp, UserSubscription } from "../badges/types.js";
+import { UserBadge, UserBadgeXp } from "../badges/types.js";
 import { Era } from "../eras/type.js";
 
 export interface CrossroadsUser {
