@@ -1,4 +1,4 @@
-import { UserBadge, UserBadgeXp } from "../badges/types.js";
+import { Badge, UserBadge, UserBadgeXp } from "../badges/types.js";
 import { Era } from "../eras/type.js";
 
 export interface CrossroadsUser {
@@ -25,7 +25,7 @@ export interface UserProfile {
     }
 
     progression: UserBadgeXp[]
-
+    locked_achievements: Badge[]
     subscription: UserSubscription | null
 }
 
