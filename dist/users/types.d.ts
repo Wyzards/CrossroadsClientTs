@@ -22,6 +22,7 @@ export interface UserProfile {
     progression: UserBadgeXp[];
     locked_achievements: Badge[];
     subscription: UserSubscription | null;
+    progression_badges: Badge[];
 }
 export interface UserSubscription {
     started_at: string;
