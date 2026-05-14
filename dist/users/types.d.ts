@@ -37,4 +37,9 @@ export interface LeaderboardEntry {
     user_id: number;
     discord_id: string | null;
 }
+export interface LeaderboardResponse {
+    entries: LeaderboardEntry[];
+    viewer_rank: number | null;
+    total: number;
+}
 //# sourceMappingURL=types.d.ts.map

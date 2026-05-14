@@ -1,5 +1,5 @@
 import { HttpClient } from "../httpClient.js";
-import { CrossroadsUser, CreateCrossroadsUserPayload, UserProfile, LeaderboardType, LeaderboardEntry } from "./types";
+import { CrossroadsUser, CreateCrossroadsUserPayload, UserProfile, LeaderboardType, LeaderboardResponse } from "./types";
 export declare class CrossroadsUsersApi {
     private http;
     constructor(http: HttpClient);
@@ -10,6 +10,6 @@ export declare class CrossroadsUsersApi {
     findByMinecraftUuid(uuid: string): Promise<CrossroadsUser | null>;
     findByDiscordId(discordId: string): Promise<CrossroadsUser | null>;
     getProfile(userId: number): Promise<UserProfile | null>;
-    getLeaderboard(type: LeaderboardType): Promise<LeaderboardEntry[]>;
+    getLeaderboard(viewerUserId: number, type: LeaderboardType): Promise<LeaderboardResponse>;
 }
 //# sourceMappingURL=index.d.ts.map

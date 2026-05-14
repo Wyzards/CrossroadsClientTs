@@ -1,6 +1,6 @@
 import { NotFoundError } from "../error.js";
 import { HttpClient } from "../httpClient.js";
-import { CrossroadsUser, CreateCrossroadsUserPayload, UserProfile, LeaderboardType, LeaderboardEntry } from "./types";
+import { CrossroadsUser, CreateCrossroadsUserPayload, UserProfile, LeaderboardType, LeaderboardEntry, LeaderboardResponse } from "./types";
 
 export class CrossroadsUsersApi {
     constructor(private http: HttpClient) { }
@@ -51,7 +51,7 @@ export class CrossroadsUsersApi {
         }
     }
 
-    async getLeaderboard(type: LeaderboardType): Promise<LeaderboardEntry[]> {
-        return this.http.get<LeaderboardEntry[]>(`/crossroads-users/leaderboard/${type}`);
+    async getLeaderboard(viewerUserId: number, type: LeaderboardType): Promise<LeaderboardResponse> {
+        return this.http.get<LeaderboardResponse>(`/crossroads-users/${viewerUserId}/leaderboard/${type}`);
     }
 }
