@@ -30,4 +30,11 @@ export interface UserSubscription {
     current_streak: number;
     is_active: boolean;
 }
+export type LeaderboardType = "hunter" | "scout" | "total" | "badge";
+export interface LeaderboardEntry {
+    rank: number;
+    value: number;
+    user_id: number;
+    discord_id: string | null;
+}
 //# sourceMappingURL=types.d.ts.map

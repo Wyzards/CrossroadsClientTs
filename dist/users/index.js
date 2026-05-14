@@ -51,6 +51,9 @@ class CrossroadsUsersApi {
             throw err;
         }
     }
+    async getLeaderboard(type) {
+        return this.http.get(`/crossroads-users/leaderboard/${type}`);
+    }
 }
 exports.CrossroadsUsersApi = CrossroadsUsersApi;
 //# sourceMappingURL=index.js.map
