@@ -60,12 +60,18 @@ var CommunityVetted;
     CommunityVetted["REJECTED"] = "rejected";
     CommunityVetted["UNVETTED"] = "unvetted";
     CommunityVetted["SKIPPED"] = "skipped";
+    CommunityVetted["PROJECT_HUNT_QUEUE"] = "project_hunt_queue";
+    CommunityVetted["VETTING_QUEUE"] = "vetting_queue";
+    CommunityVetted["CURRENTLY_VETTING"] = "currently_vetting";
 })(CommunityVetted || (exports.CommunityVetted = CommunityVetted = {}));
 exports.CommunityVettedLabels = {
     [CommunityVetted.ACCEPTED]: "Passed",
     [CommunityVetted.REJECTED]: "Rejected",
     [CommunityVetted.UNVETTED]: "Unvetted",
     [CommunityVetted.SKIPPED]: "Skipped",
+    [CommunityVetted.PROJECT_HUNT_QUEUE]: "Project Hunt Queue",
+    [CommunityVetted.VETTING_QUEUE]: "Community Vetting Queue",
+    [CommunityVetted.CURRENTLY_VETTING]: "Currently Vetting"
 };
 exports.CommunityVettedHelper = createEnumHelper(CommunityVetted, exports.CommunityVettedLabels);
 var ArchitectApproval;

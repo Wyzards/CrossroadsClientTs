@@ -141,6 +141,9 @@ export enum CommunityVetted {
     REJECTED = 'rejected',
     UNVETTED = 'unvetted',
     SKIPPED = 'skipped',
+    PROJECT_HUNT_QUEUE = 'project_hunt_queue',
+    VETTING_QUEUE = 'vetting_queue',
+    CURRENTLY_VETTING = 'currently_vetting'
 }
 
 export const CommunityVettedLabels: Record<CommunityVetted, string> = {
@@ -148,6 +151,9 @@ export const CommunityVettedLabels: Record<CommunityVetted, string> = {
     [CommunityVetted.REJECTED]: "Rejected",
     [CommunityVetted.UNVETTED]: "Unvetted",
     [CommunityVetted.SKIPPED]: "Skipped",
+    [CommunityVetted.PROJECT_HUNT_QUEUE]: "Project Hunt Queue",
+    [CommunityVetted.VETTING_QUEUE]: "Community Vetting Queue",
+    [CommunityVetted.CURRENTLY_VETTING]: "Currently Vetting"
 }
 
 export const CommunityVettedHelper = createEnumHelper(CommunityVetted, CommunityVettedLabels);

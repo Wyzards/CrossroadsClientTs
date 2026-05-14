@@ -106,7 +106,10 @@ export declare enum CommunityVetted {
     ACCEPTED = "accepted",
     REJECTED = "rejected",
     UNVETTED = "unvetted",
-    SKIPPED = "skipped"
+    SKIPPED = "skipped",
+    PROJECT_HUNT_QUEUE = "project_hunt_queue",
+    VETTING_QUEUE = "vetting_queue",
+    CURRENTLY_VETTING = "currently_vetting"
 }
 export declare const CommunityVettedLabels: Record<CommunityVetted, string>;
 export declare const CommunityVettedHelper: {
