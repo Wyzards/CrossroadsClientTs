@@ -40,6 +40,7 @@ export interface LeaderboardEntry {
 export interface LeaderboardResponse {
     entries: LeaderboardEntry[];
     viewer_rank: number | null;
+    viewer_is_tied: boolean;
     total: number;
 }
 //# sourceMappingURL=types.d.ts.map
