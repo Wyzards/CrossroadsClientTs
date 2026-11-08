@@ -14,6 +14,7 @@ import { XpApi } from "./xp/index.js";
 import { GameNightsApi } from "./gameNights/index.js";
 import { TagsApi } from "./tags/index.js";
 import { ApplicationsApi } from "./applications/index.js";
+import { TagRequestsApi } from "./tagRequests/index.js";
 
 export class CrossroadsApiClient {
     public maps: MapsApi;
@@ -28,6 +29,7 @@ export class CrossroadsApiClient {
     public gameNights: GameNightsApi;
     public tags: TagsApi;
     public applications: ApplicationsApi;
+    public tagRequests: TagRequestsApi;
 
     constructor(baseURL: string, token: string) {
         const http: HttpClient = new HttpClient(baseURL, token);
@@ -44,6 +46,7 @@ export class CrossroadsApiClient {
         this.gameNights = new GameNightsApi(http);
         this.tags = new TagsApi(http);
         this.applications = new ApplicationsApi(http);
+        this.tagRequests = new TagRequestsApi(http);
     }
 
     async setProjectStaffByDiscordId(
