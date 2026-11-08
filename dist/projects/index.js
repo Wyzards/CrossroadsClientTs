@@ -68,17 +68,7 @@ class ProjectsApi {
     removeStaff(projectId, crossroadsUserId) {
         return this.http.delete(`/projects/${projectId}/staff/${crossroadsUserId}`);
     }
-    // Attachments
-    async setAttachments(projectId, formData) {
-        // Just send the FormData to Laravel
-        return this.http.post(`/projects/${projectId}/attachments`, formData, {
-            headers: formData.getHeaders(),
-            maxBodyLength: Infinity, // allow large files
-        });
-    }
-    downloadAllAttachments(projectId) {
-        return this.http.get(`/projects/${projectId}/attachments/download`).then(data => data.map(b64 => Buffer.from(b64, "base64")));
-    }
+    // Attachments (files are set through sections and the banner)
     removeAttachment(projectId, attachmentId) {
         return this.http.delete(`/projects/${projectId}/attachments/${attachmentId}`);
     }

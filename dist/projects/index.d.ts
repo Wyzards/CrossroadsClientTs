@@ -22,8 +22,6 @@ export declare class ProjectsApi {
     listStaff(projectId: number): Promise<ProjectStaff[]>;
     setStaff(projectId: number, crossroadsUserId: number, rank: ProjectStaffRank): Promise<ProjectStaff>;
     removeStaff(projectId: number, crossroadsUserId: number): Promise<boolean>;
-    setAttachments(projectId: number, formData: FormData): Promise<any[]>;
-    downloadAllAttachments(projectId: number): Promise<Buffer[]>;
     removeAttachment(projectId: number, attachmentId: number): Promise<boolean>;
     /** Replaces the tags. primary: up to 3 names, in order. Unknown names are refused (422). */
     setTags(projectId: number, tags: {
