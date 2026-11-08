@@ -82,6 +82,36 @@ class ProjectsApi {
     removeAttachment(projectId, attachmentId) {
         return this.http.delete(`/projects/${projectId}/attachments/${attachmentId}`);
     }
+    // Content: tags, sections, banner, files
+    /** Replaces the tags. primary: up to 3 names, in order. Unknown names are refused (422). */
+    setTags(projectId, tags) {
+        return this.http.put(`/projects/${projectId}/tags`, tags);
+    }
+    addSection(projectId, text) {
+        return this.http.post(`/projects/${projectId}/sections`, { text });
+    }
+    updateSection(projectId, sectionId, text) {
+        return this.http.put(`/projects/${projectId}/sections/${sectionId}`, { text });
+    }
+    deleteSection(projectId, sectionId) {
+        return this.http.delete(`/projects/${projectId}/sections/${sectionId}`);
+    }
+    /** Replaces a section's files with the FormData's files[] (none clears them). */
+    setSectionFiles(projectId, sectionId, formData) {
+        return this.http.post(`/projects/${projectId}/sections/${sectionId}/files`, formData, { headers: formData.getHeaders(), maxBodyLength: Infinity });
+    }
+    /** Replaces the banner with the FormData's `file` (an image). */
+    setBanner(projectId, formData) {
+        return this.http.post(`/projects/${projectId}/banner`, formData, { headers: formData.getHeaders(), maxBodyLength: Infinity });
+    }
+    deleteBanner(projectId) {
+        return this.http.delete(`/projects/${projectId}/banner`);
+    }
+    /** Every attachment with its id and file name, so it can be placed in the right message. */
+    files(projectId) {
+        return this.http.get(`/projects/${projectId}/files`)
+            .then(files => files.map(f => ({ id: f.id, name: f.name, data: Buffer.from(f.data, "base64") })));
+    }
     // Links
     listLinks(projectId) {
         return this.http.get(`/projects/${projectId}/links`);

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProjectTierHelper = exports.ProjectTierLabels = exports.ProjectTier = exports.AccessibilityHelper = exports.AccessibilityLabels = exports.Accessibility = exports.ArchitectApprovalHelper = exports.ArchitectApprovalLabels = exports.ArchitectApproval = exports.CommunityVettedHelper = exports.CommunityVettedLabels = exports.CommunityVetted = exports.ProjectStageHelper = exports.ProjectStageLabels = exports.ProjectStage = exports.ProjectTypeHelper = exports.ProjectTypeLabels = exports.ProjectType = exports.ProjectStaffRankHelper = exports.ProjectStaffRank = void 0;
+exports.ProjectTierHelper = exports.ProjectTierLabels = exports.ProjectTier = exports.AccessibilityHelper = exports.AccessibilityLabels = exports.Accessibility = exports.ArchitectApprovalHelper = exports.ArchitectApprovalLabels = exports.ArchitectApproval = exports.CommunityVettedHelper = exports.CommunityVettedLabels = exports.CommunityVetted = exports.ProjectStageHelper = exports.ProjectStageLabels = exports.ProjectStage = exports.DiscordKindHelper = exports.DiscordKindLabels = exports.DiscordKind = exports.JoinMethodHelper = exports.JoinMethodLabels = exports.JoinMethod = exports.ProjectFormatHelper = exports.ProjectFormatLabels = exports.ProjectFormat = exports.ProjectStaffRankHelper = exports.ProjectStaffRank = void 0;
 exports.createEnumHelper = createEnumHelper;
 var ProjectStaffRank;
 (function (ProjectStaffRank) {
@@ -22,22 +22,41 @@ class ProjectStaffRankHelper {
     }
 }
 exports.ProjectStaffRankHelper = ProjectStaffRankHelper;
-var ProjectType;
-(function (ProjectType) {
-    ProjectType["MMO"] = "mmo";
-    ProjectType["SMP"] = "smp";
-    ProjectType["MAP"] = "map";
-    ProjectType["RPG"] = "rpg";
-    ProjectType["OTHER"] = "other";
-})(ProjectType || (exports.ProjectType = ProjectType = {}));
-exports.ProjectTypeLabels = {
-    [ProjectType.MMO]: "MMO",
-    [ProjectType.SMP]: "SMP",
-    [ProjectType.MAP]: "Map",
-    [ProjectType.RPG]: "RPG",
-    [ProjectType.OTHER]: "Other"
+/** What kind of thing a project is. Maps get no channel and list in the maps forum. (Replaced `type`; gameplay is now tags.) */
+var ProjectFormat;
+(function (ProjectFormat) {
+    ProjectFormat["SERVER"] = "server";
+    ProjectFormat["MAP"] = "map";
+})(ProjectFormat || (exports.ProjectFormat = ProjectFormat = {}));
+exports.ProjectFormatLabels = {
+    [ProjectFormat.SERVER]: "Server",
+    [ProjectFormat.MAP]: "Map",
 };
-exports.ProjectTypeHelper = createEnumHelper(ProjectType, exports.ProjectTypeLabels);
+exports.ProjectFormatHelper = createEnumHelper(ProjectFormat, exports.ProjectFormatLabels);
+/** How players get in: the project's own address (ip), or a network hub (ip) plus join_instructions. */
+var JoinMethod;
+(function (JoinMethod) {
+    JoinMethod["DIRECT"] = "direct";
+    JoinMethod["NETWORK"] = "network";
+})(JoinMethod || (exports.JoinMethod = JoinMethod = {}));
+exports.JoinMethodLabels = {
+    [JoinMethod.DIRECT]: "Direct",
+    [JoinMethod.NETWORK]: "Through a network",
+};
+exports.JoinMethodHelper = createEnumHelper(JoinMethod, exports.JoinMethodLabels);
+/** Where the project's community lives on Discord. */
+var DiscordKind;
+(function (DiscordKind) {
+    DiscordKind["OWN"] = "own";
+    DiscordKind["NETWORK"] = "network";
+    DiscordKind["NONE"] = "none";
+})(DiscordKind || (exports.DiscordKind = DiscordKind = {}));
+exports.DiscordKindLabels = {
+    [DiscordKind.OWN]: "Its own server",
+    [DiscordKind.NETWORK]: "A network's shared server",
+    [DiscordKind.NONE]: "No Discord",
+};
+exports.DiscordKindHelper = createEnumHelper(DiscordKind, exports.DiscordKindLabels);
 var ProjectStage;
 (function (ProjectStage) {
     ProjectStage["RELEASED"] = "released";

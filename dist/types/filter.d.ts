@@ -1,8 +1,13 @@
-import { Accessibility, ArchitectApproval, CommunityVetted, ProjectStage, ProjectType } from "../projects/types.js";
+import { Accessibility, ArchitectApproval, CommunityVetted, ProjectFormat, ProjectStage } from "../projects/types.js";
 export type FilterRule = {
-    field: "type";
+    field: "format";
     operator: FilterOperator;
-    value: ProjectType;
+    value: ProjectFormat;
+} | {
+    /** tags = any of the project's tags; primary_tags = its primary ones. Value = tag name. */
+    field: "tags" | "primary_tags";
+    operator: TagFilterOperator;
+    value: string;
 } | {
     field: "project_stage";
     operator: FilterOperator;
@@ -25,6 +30,7 @@ export type FilterGroup = {
     any?: (FilterRule | FilterGroup)[];
 };
 export type FilterOperator = '=' | '!=';
-export type FilterField = "architect_approval" | "community_vetted" | "project_stage" | "accessibility" | "type";
-export type FilterValue = ArchitectApproval | CommunityVetted | ProjectStage | Accessibility | ProjectType;
+export type TagFilterOperator = 'has' | '!has';
+export type FilterField = "architect_approval" | "community_vetted" | "project_stage" | "accessibility" | "format" | "tags" | "primary_tags";
+export type FilterValue = ArchitectApproval | CommunityVetted | ProjectStage | Accessibility | ProjectFormat | string;
 //# sourceMappingURL=filter.d.ts.map

@@ -11,17 +11,54 @@ export interface Project {
     project_stage: ProjectStage;
     accessibility: Accessibility;
     tier: ProjectTier;
-    type: ProjectType;
-    description?: string;
+    format: ProjectFormat;
     ip?: string;
+    join_method?: JoinMethod | null;
+    network_name?: string | null;
+    join_instructions?: string | null;
+    discord_kind?: DiscordKind | null;
+    discord_invite?: string | null;
+    has_dedicated_announcements?: boolean | null;
+    banner_attachment_id?: number | null;
     role_id?: string;
     version?: string;
     discovery_thread_id?: string;
 }
 export interface ProjectWithRelations extends Project {
     links: ProjectLink[];
+    /** Every file: the banner and all sections' files. */
     attachments: ProjectAttachment[];
     staff: ProjectStaff[];
+    /** The description, in position order. */
+    sections: ProjectSection[];
+    /** Primary tags (pivot.position 1-3) first in order, then secondary tags. */
+    tags: ProjectTag[];
+    banner: ProjectAttachment | null;
+}
+/** One part of a description: up to 2000 characters of text plus up to 10 files. */
+export interface ProjectSection {
+    id: number;
+    position: number;
+    text: string | null;
+    attachments: ProjectAttachment[];
+}
+/** A gameplay tag. Featured tags are the forum tag set. */
+export interface Tag {
+    id: number;
+    name: string;
+    featured: boolean;
+    projects_count?: number;
+}
+export interface ProjectTag extends Tag {
+    pivot: {
+        position: number | null;
+    };
+}
+/** A downloaded attachment. */
+export interface ProjectFile {
+    id: number;
+    name: string;
+    data: Buffer;
 }
 export interface CreateProjectPayload {
     name: string;
@@ -34,9 +71,14 @@ export interface CreateProjectPayload {
     project_stage?: ProjectStage;
     accessibility?: Accessibility;
     tier?: ProjectTier;
-    type?: ProjectType;
-    description?: string;
+    format?: ProjectFormat;
     ip?: string;
+    join_method?: JoinMethod | null;
+    network_name?: string | null;
+    join_instructions?: string | null;
+    discord_kind?: DiscordKind | null;
+    discord_invite?: string | null;
+    has_dedicated_announcements?: boolean | null;
     role_id?: string;
     version?: string;
     discovery_thread_id?: string;
@@ -52,10 +94,15 @@ export interface UpdateProjectPayload {
     project_stage?: ProjectStage;
     accessibility?: Accessibility;
     tier?: ProjectTier;
-    description?: string;
+    format?: ProjectFormat;
     ip?: string;
+    join_method?: JoinMethod | null;
+    network_name?: string | null;
+    join_instructions?: string | null;
+    discord_kind?: DiscordKind | null;
+    discord_invite?: string | null;
+    has_dedicated_announcements?: boolean | null;
     role_id?: string;
-    type?: ProjectType;
     version?: string;
     discovery_thread_id?: string;
 }
@@ -75,23 +122,44 @@ export declare class ProjectStaffRankHelper {
 export interface ProjectAttachment {
     id: number;
     path: string;
+    /** Null for the banner. */
+    section_id: number | null;
 }
 export interface ProjectLink {
     id: number;
     url: string;
     label: string;
 }
-export declare enum ProjectType {
-    MMO = "mmo",
-    SMP = "smp",
-    MAP = "map",
-    RPG = "rpg",
-    OTHER = "other"
+/** What kind of thing a project is. Maps get no channel and list in the maps forum. (Replaced `type`; gameplay is now tags.) */
+export declare enum ProjectFormat {
+    SERVER = "server",
+    MAP = "map"
 }
-export declare const ProjectTypeLabels: Record<ProjectType, string>;
-export declare const ProjectTypeHelper: {
+export declare const ProjectFormatLabels: Record<ProjectFormat, string>;
+export declare const ProjectFormatHelper: {
     values: () => string[];
-    pretty: (value: ProjectType) => string;
+    pretty: (value: ProjectFormat) => string;
+};
+/** How players get in: the project's own address (ip), or a network hub (ip) plus join_instructions. */
+export declare enum JoinMethod {
+    DIRECT = "direct",
+    NETWORK = "network"
+}
+export declare const JoinMethodLabels: Record<JoinMethod, string>;
+export declare const JoinMethodHelper: {
+    values: () => string[];
+    pretty: (value: JoinMethod) => string;
+};
+/** Where the project's community lives on Discord. */
+export declare enum DiscordKind {
+    OWN = "own",
+    NETWORK = "network",
+    NONE = "none"
+}
+export declare const DiscordKindLabels: Record<DiscordKind, string>;
+export declare const DiscordKindHelper: {
+    values: () => string[];
+    pretty: (value: DiscordKind) => string;
 };
 export declare enum ProjectStage {
     RELEASED = "released",

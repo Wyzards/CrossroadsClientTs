@@ -5,6 +5,8 @@ export interface ProjectList {
     name: string;
     channel_id: string | null;
     filters: FilterGroup;
+    /** When on, every featured tag is also a forum tag of this list (generated, id null). */
+    featured_tags: boolean;
     is_active: boolean;
 }
 export interface ProjectListWithRelations extends ProjectList {
@@ -12,7 +14,9 @@ export interface ProjectListWithRelations extends ProjectList {
     tags: ProjectListTag[];
 }
 export interface ProjectListTag {
-    id: number;
+    /** Null for tags generated from featured tags; those can't be edited here. */
+    id: number | null;
+    featured?: boolean;
     project_list_id: number;
     name: string;
     filters: FilterGroup;

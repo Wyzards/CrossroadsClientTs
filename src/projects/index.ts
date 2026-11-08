@@ -4,6 +4,7 @@ import { HttpClient } from "../httpClient.js";
 import {
     CreateProjectPayload,
     Project,
+    ProjectFile,
     ProjectLink,
     ProjectStaff,
     ProjectStaffRank,
@@ -106,6 +107,47 @@ export class ProjectsApi {
 
     removeAttachment(projectId: number, attachmentId: number): Promise<boolean> {
         return this.http.delete(`/projects/${projectId}/attachments/${attachmentId}`);
+    }
+
+    // Content: tags, sections, banner, files
+
+    /** Replaces the tags. primary: up to 3 names, in order. Unknown names are refused (422). */
+    setTags(projectId: number, tags: { primary: string[], secondary: string[] }): Promise<ProjectWithRelations> {
+        return this.http.put<ProjectWithRelations>(`/projects/${projectId}/tags`, tags);
+    }
+
+    addSection(projectId: number, text: string | null): Promise<ProjectWithRelations> {
+        return this.http.post<ProjectWithRelations>(`/projects/${projectId}/sections`, { text });
+    }
+
+    updateSection(projectId: number, sectionId: number, text: string | null): Promise<ProjectWithRelations> {
+        return this.http.put<ProjectWithRelations>(`/projects/${projectId}/sections/${sectionId}`, { text });
+    }
+
+    deleteSection(projectId: number, sectionId: number): Promise<ProjectWithRelations> {
+        return this.http.delete<ProjectWithRelations>(`/projects/${projectId}/sections/${sectionId}`);
+    }
+
+    /** Replaces a section's files with the FormData's files[] (none clears them). */
+    setSectionFiles(projectId: number, sectionId: number, formData: FormData): Promise<ProjectWithRelations> {
+        return this.http.post<ProjectWithRelations>(`/projects/${projectId}/sections/${sectionId}/files`, formData,
+            { headers: formData.getHeaders(), maxBodyLength: Infinity });
+    }
+
+    /** Replaces the banner with the FormData's `file` (an image). */
+    setBanner(projectId: number, formData: FormData): Promise<ProjectWithRelations> {
+        return this.http.post<ProjectWithRelations>(`/projects/${projectId}/banner`, formData,
+            { headers: formData.getHeaders(), maxBodyLength: Infinity });
+    }
+
+    deleteBanner(projectId: number): Promise<ProjectWithRelations> {
+        return this.http.delete<ProjectWithRelations>(`/projects/${projectId}/banner`);
+    }
+
+    /** Every attachment with its id and file name, so it can be placed in the right message. */
+    files(projectId: number): Promise<ProjectFile[]> {
+        return this.http.get<{ id: number, name: string, data: string }[]>(`/projects/${projectId}/files`)
+            .then(files => files.map(f => ({ id: f.id, name: f.name, data: Buffer.from(f.data, "base64") })));
     }
 
     // Links

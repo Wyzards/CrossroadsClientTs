@@ -2,15 +2,21 @@ import {
     Accessibility,
     ArchitectApproval,
     CommunityVetted,
+    ProjectFormat,
     ProjectStage,
-    ProjectType
 } from "../projects/types.js";
 
 export type FilterRule =
     | {
-        field: "type";
+        field: "format";
         operator: FilterOperator;
-        value: ProjectType;
+        value: ProjectFormat;
+    }
+    | {
+        /** tags = any of the project's tags; primary_tags = its primary ones. Value = tag name. */
+        field: "tags" | "primary_tags";
+        operator: TagFilterOperator;
+        value: string;
     }
     | {
         field: "project_stage";
@@ -40,16 +46,21 @@ export type FilterGroup = {
 
 export type FilterOperator = '=' | '!=';
 
+export type TagFilterOperator = 'has' | '!has';
+
 export type FilterField =
     | "architect_approval"
     | "community_vetted"
     | "project_stage"
     | "accessibility"
-    | "type";
+    | "format"
+    | "tags"
+    | "primary_tags";
 
 export type FilterValue =
     | ArchitectApproval
     | CommunityVetted
     | ProjectStage
     | Accessibility
-    | ProjectType;
+    | ProjectFormat
+    | string;

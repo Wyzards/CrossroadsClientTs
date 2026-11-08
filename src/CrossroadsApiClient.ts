@@ -12,6 +12,7 @@ import { CrossroadsUsersApi } from "./users";
 import { CrossroadsUser } from "./users/types.js";
 import { XpApi } from "./xp/index.js";
 import { GameNightsApi } from "./gameNights/index.js";
+import { TagsApi } from "./tags/index.js";
 
 export class CrossroadsApiClient {
     public maps: MapsApi;
@@ -24,6 +25,7 @@ export class CrossroadsApiClient {
     public eras: ErasApi;
     public xp: XpApi;
     public gameNights: GameNightsApi;
+    public tags: TagsApi;
 
     constructor(baseURL: string, token: string) {
         const http: HttpClient = new HttpClient(baseURL, token);
@@ -38,6 +40,7 @@ export class CrossroadsApiClient {
         this.eras = new ErasApi(http);
         this.xp = new XpApi(http);
         this.gameNights = new GameNightsApi(http);
+        this.tags = new TagsApi(http);
     }
 
     async setProjectStaffByDiscordId(
