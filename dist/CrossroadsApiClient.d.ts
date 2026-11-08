@@ -8,6 +8,7 @@ import { ProjectsApi } from "./projects";
 import { ProjectStaff, ProjectStaffRank } from "./projects/types.js";
 import { CrossroadsUsersApi } from "./users";
 import { XpApi } from "./xp/index.js";
+import { GameNightsApi } from "./gameNights/index.js";
 export declare class CrossroadsApiClient {
     maps: MapsApi;
     mapInstances: MapInstancesApi;
@@ -18,6 +19,7 @@ export declare class CrossroadsApiClient {
     badges: BadgesApi;
     eras: ErasApi;
     xp: XpApi;
+    gameNights: GameNightsApi;
     constructor(baseURL: string, token: string);
     setProjectStaffByDiscordId(projectId: number, discordId: string, rank: ProjectStaffRank): Promise<ProjectStaff>;
     removeProjectStaffByDiscordId(projectId: number, discordId: string): Promise<boolean>;

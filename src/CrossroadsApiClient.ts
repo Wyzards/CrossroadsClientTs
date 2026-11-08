@@ -11,6 +11,7 @@ import { ProjectStaff, ProjectStaffRank } from "./projects/types.js";
 import { CrossroadsUsersApi } from "./users";
 import { CrossroadsUser } from "./users/types.js";
 import { XpApi } from "./xp/index.js";
+import { GameNightsApi } from "./gameNights/index.js";
 
 export class CrossroadsApiClient {
     public maps: MapsApi;
@@ -22,6 +23,7 @@ export class CrossroadsApiClient {
     public badges: BadgesApi;
     public eras: ErasApi;
     public xp: XpApi;
+    public gameNights: GameNightsApi;
 
     constructor(baseURL: string, token: string) {
         const http: HttpClient = new HttpClient(baseURL, token);
@@ -35,6 +37,7 @@ export class CrossroadsApiClient {
         this.badges = new BadgesApi(http);
         this.eras = new ErasApi(http);
         this.xp = new XpApi(http);
+        this.gameNights = new GameNightsApi(http);
     }
 
     async setProjectStaffByDiscordId(

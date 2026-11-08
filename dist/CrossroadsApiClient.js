@@ -11,6 +11,7 @@ const index_js_4 = require("./projectLists/index.js");
 const projects_1 = require("./projects");
 const users_1 = require("./users");
 const index_js_5 = require("./xp/index.js");
+const index_js_6 = require("./gameNights/index.js");
 class CrossroadsApiClient {
     constructor(baseURL, token) {
         const http = new httpClient_1.HttpClient(baseURL, token);
@@ -23,6 +24,7 @@ class CrossroadsApiClient {
         this.badges = new index_js_1.BadgesApi(http);
         this.eras = new index_js_2.ErasApi(http);
         this.xp = new index_js_5.XpApi(http);
+        this.gameNights = new index_js_6.GameNightsApi(http);
     }
     async setProjectStaffByDiscordId(projectId, discordId, rank) {
         let user = await this.users.findByDiscordId(discordId);
