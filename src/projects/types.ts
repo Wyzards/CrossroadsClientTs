@@ -11,6 +11,7 @@ export interface Project {
     community_vetted: CommunityVetted;
     project_stage: ProjectStage;
     accessibility: Accessibility;
+    tier: ProjectTier;
     type: ProjectType;
     description?: string;
     ip?: string;
@@ -36,6 +37,7 @@ export interface CreateProjectPayload {
     community_vetted?: CommunityVetted;
     project_stage?: ProjectStage;
     accessibility?: Accessibility;
+    tier?: ProjectTier;
     type?: ProjectType;
     description?: string;
     ip?: string;
@@ -54,6 +56,7 @@ export interface UpdateProjectPayload {
     community_vetted?: CommunityVetted;
     project_stage?: ProjectStage;
     accessibility?: Accessibility;
+    tier?: ProjectTier;
     description?: string;
     ip?: string;
     role_id?: string;
@@ -189,6 +192,21 @@ export const AccessibilityLabels: Record<Accessibility, string> = {
 }
 
 export const AccessibilityHelper = createEnumHelper(Accessibility, AccessibilityLabels);
+
+/** Featured level of a listed project; shown as an emoji in its channel name (see the bot's ProjectMessageBuilder). */
+export enum ProjectTier {
+    NORMAL = 'normal',
+    STAR = 'star',
+    FLAME = 'flame'
+}
+
+export const ProjectTierLabels: Record<ProjectTier, string> = {
+    [ProjectTier.NORMAL]: "Normal",
+    [ProjectTier.STAR]: "Star",
+    [ProjectTier.FLAME]: "Flame",
+}
+
+export const ProjectTierHelper = createEnumHelper(ProjectTier, ProjectTierLabels);
 
 export function createEnumHelper<T extends Record<string, string>>(
     enumObj: T,

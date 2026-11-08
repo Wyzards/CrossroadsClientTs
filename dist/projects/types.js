@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AccessibilityHelper = exports.AccessibilityLabels = exports.Accessibility = exports.ArchitectApprovalHelper = exports.ArchitectApprovalLabels = exports.ArchitectApproval = exports.CommunityVettedHelper = exports.CommunityVettedLabels = exports.CommunityVetted = exports.ProjectStageHelper = exports.ProjectStageLabels = exports.ProjectStage = exports.ProjectTypeHelper = exports.ProjectTypeLabels = exports.ProjectType = exports.ProjectStaffRankHelper = exports.ProjectStaffRank = void 0;
+exports.ProjectTierHelper = exports.ProjectTierLabels = exports.ProjectTier = exports.AccessibilityHelper = exports.AccessibilityLabels = exports.Accessibility = exports.ArchitectApprovalHelper = exports.ArchitectApprovalLabels = exports.ArchitectApproval = exports.CommunityVettedHelper = exports.CommunityVettedLabels = exports.CommunityVetted = exports.ProjectStageHelper = exports.ProjectStageLabels = exports.ProjectStage = exports.ProjectTypeHelper = exports.ProjectTypeLabels = exports.ProjectType = exports.ProjectStaffRankHelper = exports.ProjectStaffRank = void 0;
 exports.createEnumHelper = createEnumHelper;
 var ProjectStaffRank;
 (function (ProjectStaffRank) {
@@ -102,6 +102,19 @@ exports.AccessibilityLabels = {
     [Accessibility.CLOSED]: "Closed",
 };
 exports.AccessibilityHelper = createEnumHelper(Accessibility, exports.AccessibilityLabels);
+/** Featured level of a listed project; shown as an emoji in its channel name (see the bot's ProjectMessageBuilder). */
+var ProjectTier;
+(function (ProjectTier) {
+    ProjectTier["NORMAL"] = "normal";
+    ProjectTier["STAR"] = "star";
+    ProjectTier["FLAME"] = "flame";
+})(ProjectTier || (exports.ProjectTier = ProjectTier = {}));
+exports.ProjectTierLabels = {
+    [ProjectTier.NORMAL]: "Normal",
+    [ProjectTier.STAR]: "Star",
+    [ProjectTier.FLAME]: "Flame",
+};
+exports.ProjectTierHelper = createEnumHelper(ProjectTier, exports.ProjectTierLabels);
 function createEnumHelper(enumObj, labels) {
     return {
         values: () => Object.values(enumObj),
