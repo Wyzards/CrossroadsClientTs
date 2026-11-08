@@ -38,5 +38,9 @@ export type BadgeCategory = 'progression' | 'community' | 'achievement' | 'artif
 export type BadgeRarity = 'common' | 'uncommon' | 'rare' | 'legendary';
 
 export interface SystemChannels {
-    achievements_channel_id: string;
+    achievements_channel_id?: string | null;
+    intake_channel_id?: string | null;
+    intake_review_forum_id?: string | null;
+    architects_channel_id?: string | null;
+    hunt_suggestions_channel_id?: string | null;
 }

@@ -47,6 +47,11 @@ export interface ApplicationContent {
     };
     english: boolean | null;
 }
+export type ApplicationSection = "basics" | "status" | "joining" | "discord" | "description" | "team" | "submit";
+export interface MissingItem {
+    section: ApplicationSection;
+    label: string;
+}
 export interface ApplicationFile {
     id: number;
     name: string;
@@ -102,8 +107,8 @@ export interface ApplicationFlags {
 export interface ApplicationDetail extends Application {
     files: ApplicationFile[];
     reviews: ApplicationReview[];
-    /** What still blocks submitting (empty = complete). */
-    missing: string[];
+    /** What still blocks submitting (empty = complete), by the card section that fixes it. */
+    missing: MissingItem[];
     flags: ApplicationFlags;
     allowed_routes: AcceptRoute[];
 }
