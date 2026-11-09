@@ -14,6 +14,8 @@ export interface Project {
     tier: ProjectTier;
     format: ProjectFormat;
     ip?: string;
+    /** Maps: where to download it. */
+    download_url?: string | null;
     join_method?: JoinMethod | null;
     network_name?: string | null;
     join_instructions?: string | null;
@@ -79,6 +81,8 @@ export interface CreateProjectPayload {
     tier?: ProjectTier;
     format?: ProjectFormat;
     ip?: string;
+    /** Maps: where to download it. */
+    download_url?: string | null;
     join_method?: JoinMethod | null;
     network_name?: string | null;
     join_instructions?: string | null;
@@ -103,6 +107,8 @@ export interface UpdateProjectPayload {
     tier?: ProjectTier;
     format?: ProjectFormat;
     ip?: string;
+    /** Maps: where to download it. */
+    download_url?: string | null;
     join_method?: JoinMethod | null;
     network_name?: string | null;
     join_instructions?: string | null;

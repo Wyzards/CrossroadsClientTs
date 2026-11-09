@@ -17,6 +17,8 @@ export interface ApplicationContent {
     accessibility: Accessibility | null;
     /** The address players type: the server's own (direct) or the hub's (network). */
     ip: string | null;
+    /** Maps: where to download it (required once downloadable). */
+    download_url: string | null;
     version: string | null;
     join_method: JoinMethod | null;
     network_name: string | null;
