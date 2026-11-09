@@ -15,6 +15,7 @@ import { GameNightsApi } from "./gameNights/index.js";
 import { TagsApi } from "./tags/index.js";
 import { ApplicationsApi } from "./applications/index.js";
 import { TagRequestsApi } from "./tagRequests/index.js";
+import { AnnouncementConnectionsApi } from "./announcementConnections/index.js";
 
 export class CrossroadsApiClient {
     public maps: MapsApi;
@@ -30,6 +31,7 @@ export class CrossroadsApiClient {
     public tags: TagsApi;
     public applications: ApplicationsApi;
     public tagRequests: TagRequestsApi;
+    public announcementConnections: AnnouncementConnectionsApi;
 
     constructor(baseURL: string, token: string) {
         const http: HttpClient = new HttpClient(baseURL, token);
@@ -47,6 +49,7 @@ export class CrossroadsApiClient {
         this.tags = new TagsApi(http);
         this.applications = new ApplicationsApi(http);
         this.tagRequests = new TagRequestsApi(http);
+        this.announcementConnections = new AnnouncementConnectionsApi(http);
     }
 
     async setProjectStaffByDiscordId(
