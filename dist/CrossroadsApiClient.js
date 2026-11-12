@@ -16,6 +16,7 @@ const index_js_7 = require("./tags/index.js");
 const index_js_8 = require("./applications/index.js");
 const index_js_9 = require("./tagRequests/index.js");
 const index_js_10 = require("./announcementConnections/index.js");
+const index_js_11 = require("./inviteChecks/index.js");
 class CrossroadsApiClient {
     constructor(baseURL, token) {
         const http = new httpClient_1.HttpClient(baseURL, token);
@@ -33,6 +34,7 @@ class CrossroadsApiClient {
         this.applications = new index_js_8.ApplicationsApi(http);
         this.tagRequests = new index_js_9.TagRequestsApi(http);
         this.announcementConnections = new index_js_10.AnnouncementConnectionsApi(http);
+        this.inviteChecks = new index_js_11.InviteChecksApi(http);
     }
     async setProjectStaffByDiscordId(projectId, discordId, rank) {
         let user = await this.users.findByDiscordId(discordId);
