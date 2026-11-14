@@ -83,6 +83,10 @@ class ProjectsApi {
     updateSection(projectId, sectionId, text) {
         return this.http.put(`/projects/${projectId}/sections/${sectionId}`, { text });
     }
+    /** Sets the section order: every section id of the project, once, in the new order. */
+    orderSections(projectId, ids) {
+        return this.http.put(`/projects/${projectId}/sections/order`, { ids });
+    }
     deleteSection(projectId, sectionId) {
         return this.http.delete(`/projects/${projectId}/sections/${sectionId}`);
     }

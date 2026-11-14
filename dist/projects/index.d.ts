@@ -30,6 +30,8 @@ export declare class ProjectsApi {
     }): Promise<ProjectWithRelations>;
     addSection(projectId: number, text: string | null): Promise<ProjectWithRelations>;
     updateSection(projectId: number, sectionId: number, text: string | null): Promise<ProjectWithRelations>;
+    /** Sets the section order: every section id of the project, once, in the new order. */
+    orderSections(projectId: number, ids: number[]): Promise<ProjectWithRelations>;
     deleteSection(projectId: number, sectionId: number): Promise<ProjectWithRelations>;
     /** Replaces a section's files with the FormData's files[] (none clears them). */
     setSectionFiles(projectId: number, sectionId: number, formData: FormData): Promise<ProjectWithRelations>;

@@ -106,6 +106,11 @@ export class ProjectsApi {
         return this.http.put<ProjectWithRelations>(`/projects/${projectId}/sections/${sectionId}`, { text });
     }
 
+    /** Sets the section order: every section id of the project, once, in the new order. */
+    orderSections(projectId: number, ids: number[]): Promise<ProjectWithRelations> {
+        return this.http.put<ProjectWithRelations>(`/projects/${projectId}/sections/order`, { ids });
+    }
+
     deleteSection(projectId: number, sectionId: number): Promise<ProjectWithRelations> {
         return this.http.delete<ProjectWithRelations>(`/projects/${projectId}/sections/${sectionId}`);
     }
