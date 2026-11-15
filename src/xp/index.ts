@@ -6,12 +6,13 @@ import { XpEventDefinition } from "./types.js";
 export class XpApi {
     constructor(private http: HttpClient) { }
 
-    triggerXpEvent(userId: number, eventId: number): Promise<UserBadgeXp | null> {
+    triggerXpEvent(userId: number, eventId: number, context?: string): Promise<UserBadgeXp | null> {
         return this.http.post<UserBadgeXp | null>(
             `/crossroads-users/${userId}/xp-events/${eventId}/trigger`,
             {
                 user_id: userId,
-                xp_event_definition_id: eventId
+                xp_event_definition_id: eventId,
+                ...(context ? { context } : {})
             }
         );
     }

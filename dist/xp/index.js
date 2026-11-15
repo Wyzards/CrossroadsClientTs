@@ -6,10 +6,11 @@ class XpApi {
     constructor(http) {
         this.http = http;
     }
-    triggerXpEvent(userId, eventId) {
+    triggerXpEvent(userId, eventId, context) {
         return this.http.post(`/crossroads-users/${userId}/xp-events/${eventId}/trigger`, {
             user_id: userId,
-            xp_event_definition_id: eventId
+            xp_event_definition_id: eventId,
+            ...(context ? { context } : {})
         });
     }
     getXpEventDefinitions() {
