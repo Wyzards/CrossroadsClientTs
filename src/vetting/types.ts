@@ -14,6 +14,10 @@ export interface LeaseHolder {
 export interface VettingSettings {
     enabled: boolean;
     enabled_at: string | null;
+    /** Whether the top Hunt project may be a candidate (Ryan, 2026-11-15: off until the Hunt is redone). */
+    hunt_in_poll: boolean;
+    /** The poll's option cap, 1-10 (default 3). */
+    max_candidates: number;
     ping_vetting_role_id: string | null;
     ping_polls_role_id: string | null;
     ping_gamenight_role_id: string | null;
@@ -24,7 +28,7 @@ export interface VettingSettings {
 }
 
 export type VettingSettingsUpdate = Partial<Pick<VettingSettings,
-    "enabled" | "ping_vetting_role_id" | "ping_polls_role_id" | "ping_gamenight_role_id" | "ping_new_projects_role_id" | "ping_new_archive_role_id">>;
+    "enabled" | "hunt_in_poll" | "max_candidates" | "ping_vetting_role_id" | "ping_polls_role_id" | "ping_gamenight_role_id" | "ping_new_projects_role_id" | "ping_new_archive_role_id">>;
 
 export interface VettingStep {
     id: number;
