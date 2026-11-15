@@ -36,5 +36,7 @@ export interface SystemChannels {
     intake_review_forum_id?: string | null;
     architects_channel_id?: string | null;
     hunt_suggestions_channel_id?: string | null;
+    vetting_forum_id?: string | null;
+    announcements_channel_id?: string | null;
 }
 //# sourceMappingURL=types.d.ts.map

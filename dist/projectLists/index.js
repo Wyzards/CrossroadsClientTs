@@ -39,6 +39,10 @@ class ProjectListsApi {
     evaluateTagsBulk(listId, payload) {
         return this.http.post(`/project-lists/${listId}/evaluate-tags-bulk`, payload);
     }
+    /** Read-only: the names of the active lists a hypothetical project would match. */
+    match(project) {
+        return this.http.post("/project-lists/match", project);
+    }
 }
 exports.ProjectListsApi = ProjectListsApi;
 //# sourceMappingURL=index.js.map

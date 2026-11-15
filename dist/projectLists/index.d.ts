@@ -1,5 +1,6 @@
 import { HttpClient } from "../httpClient.js";
 import { FilterGroup } from "../types/filter.js";
+import { MatchProjectPayload } from "../vetting/types.js";
 import { ProjectListTag, ProjectListWithRelations } from "./types";
 export declare class ProjectListsApi {
     private http;
@@ -33,5 +34,7 @@ export declare class ProjectListsApi {
     evaluateTagsBulk(listId: number, payload: {
         project_ids: number[];
     }): Promise<Record<number, ProjectListTag[]>>;
+    /** Read-only: the names of the active lists a hypothetical project would match. */
+    match(project: MatchProjectPayload): Promise<string[]>;
 }
 //# sourceMappingURL=index.d.ts.map

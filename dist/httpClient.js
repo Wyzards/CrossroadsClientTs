@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HttpClient = void 0;
+exports.HttpClient = exports.ReadOnlyError = void 0;
 exports.createMockAxios = createMockAxios;
 const axios_1 = __importDefault(require("axios"));
 const error_1 = require("./error");
@@ -18,8 +18,17 @@ function createMockAxios() {
         interceptors: { request: { use: jest.fn(), eject: jest.fn() }, response: { use: jest.fn(), eject: jest.fn() } },
     };
 }
+/** POSTs that only read; allowed on a readOnly client. */
+const READ_ONLY_POSTS = [/\/projects\/search$/, /\/project-lists\/\d+\/evaluate-tags-bulk$/, /\/project-lists\/match$/];
+class ReadOnlyError extends Error {
+    constructor(method, url) {
+        super(`readOnly client refused ${method.toUpperCase()} ${url}`);
+        this.name = "ReadOnlyError";
+    }
+}
+exports.ReadOnlyError = ReadOnlyError;
 class HttpClient {
-    constructor(baseURL, token, axiosInstance) {
+    constructor(baseURL, token, axiosInstance, options = {}) {
         this.axios = axiosInstance ?? axios_1.default.create({
             // baseURL specified in implementing config
             // ex: http://127.0.0.1:8000/api/
@@ -28,6 +37,15 @@ class HttpClient {
                 'Authorization': `Bearer ${token}`,
             },
         });
+        if (options.readOnly) {
+            this.axios.interceptors.request.use(config => {
+                const method = (config.method ?? "get").toLowerCase();
+                const url = (config.url ?? "").split("?")[0] ?? "";
+                if (method !== "get" && !(method === "post" && READ_ONLY_POSTS.some(r => r.test(url))))
+                    throw new ReadOnlyError(method, config.url ?? "");
+                return config;
+            });
+        }
         if (!axiosInstance) {
             this.axios.interceptors.response.use(res => res, err => {
                 const status = err.response?.status;

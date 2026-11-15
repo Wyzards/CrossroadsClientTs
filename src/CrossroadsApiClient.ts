@@ -1,7 +1,7 @@
 import { BadgesApi } from "./badges/index.js";
 import { ErasApi } from "./eras/index.js";
 import { NotFoundError } from "./error.js";
-import { HttpClient } from "./httpClient";
+import { HttpClient, HttpClientOptions } from "./httpClient";
 import { MapInstancesApi } from "./mapInstances";
 import { MapsApi } from "./maps";
 import { ProjectListEntriesApi } from "./projectListEntries/index.js";
@@ -17,6 +17,7 @@ import { ApplicationsApi } from "./applications/index.js";
 import { TagRequestsApi } from "./tagRequests/index.js";
 import { AnnouncementConnectionsApi } from "./announcementConnections/index.js";
 import { InviteChecksApi } from "./inviteChecks/index.js";
+import { VettingApi } from "./vetting/index.js";
 
 export class CrossroadsApiClient {
     public maps: MapsApi;
@@ -34,9 +35,11 @@ export class CrossroadsApiClient {
     public tagRequests: TagRequestsApi;
     public announcementConnections: AnnouncementConnectionsApi;
     public inviteChecks: InviteChecksApi;
+    public vetting: VettingApi;
 
-    constructor(baseURL: string, token: string) {
-        const http: HttpClient = new HttpClient(baseURL, token);
+    /** options.readOnly: every request except GET (and the read-only POST searches) is refused; for dry runs. */
+    constructor(baseURL: string, token: string, options: HttpClientOptions = {}) {
+        const http: HttpClient = new HttpClient(baseURL, token, undefined, options);
 
         this.maps = new MapsApi(http);
         this.mapInstances = new MapInstancesApi(http);
@@ -53,6 +56,7 @@ export class CrossroadsApiClient {
         this.tagRequests = new TagRequestsApi(http);
         this.announcementConnections = new AnnouncementConnectionsApi(http);
         this.inviteChecks = new InviteChecksApi(http);
+        this.vetting = new VettingApi(http);
     }
 
     async setProjectStaffByDiscordId(

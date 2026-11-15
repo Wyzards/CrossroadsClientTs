@@ -1,5 +1,6 @@
 import { BadgesApi } from "./badges/index.js";
 import { ErasApi } from "./eras/index.js";
+import { HttpClientOptions } from "./httpClient";
 import { MapInstancesApi } from "./mapInstances";
 import { MapsApi } from "./maps";
 import { ProjectListEntriesApi } from "./projectListEntries/index.js";
@@ -14,6 +15,7 @@ import { ApplicationsApi } from "./applications/index.js";
 import { TagRequestsApi } from "./tagRequests/index.js";
 import { AnnouncementConnectionsApi } from "./announcementConnections/index.js";
 import { InviteChecksApi } from "./inviteChecks/index.js";
+import { VettingApi } from "./vetting/index.js";
 export declare class CrossroadsApiClient {
     maps: MapsApi;
     mapInstances: MapInstancesApi;
@@ -30,7 +32,9 @@ export declare class CrossroadsApiClient {
     tagRequests: TagRequestsApi;
     announcementConnections: AnnouncementConnectionsApi;
     inviteChecks: InviteChecksApi;
-    constructor(baseURL: string, token: string);
+    vetting: VettingApi;
+    /** options.readOnly: every request except GET (and the read-only POST searches) is refused; for dry runs. */
+    constructor(baseURL: string, token: string, options?: HttpClientOptions);
     setProjectStaffByDiscordId(projectId: number, discordId: string, rank: ProjectStaffRank): Promise<ProjectStaff>;
     removeProjectStaffByDiscordId(projectId: number, discordId: string): Promise<boolean>;
 }

@@ -1,5 +1,6 @@
 import { HttpClient } from "../httpClient.js";
 import { FilterGroup } from "../types/filter.js";
+import { MatchProjectPayload } from "../vetting/types.js";
 import { ProjectListTag, ProjectListWithRelations } from "./types";
 
 export class ProjectListsApi {
@@ -95,5 +96,10 @@ export class ProjectListsApi {
             `/project-lists/${listId}/evaluate-tags-bulk`,
             payload
         );
+    }
+
+    /** Read-only: the names of the active lists a hypothetical project would match. */
+    match(project: MatchProjectPayload): Promise<string[]> {
+        return this.http.post<string[]>("/project-lists/match", project);
     }
 }

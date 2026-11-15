@@ -25,10 +25,25 @@ export interface HttpResponse<T> {
     status: number;
 }
 
+export interface HttpClientOptions {
+    /** Refuse every request that could write (dry runs). */
+    readOnly?: boolean;
+}
+
+/** POSTs that only read; allowed on a readOnly client. */
+const READ_ONLY_POSTS = [/\/projects\/search$/, /\/project-lists\/\d+\/evaluate-tags-bulk$/, /\/project-lists\/match$/];
+
+export class ReadOnlyError extends Error {
+    constructor(method: string, url: string) {
+        super(`readOnly client refused ${method.toUpperCase()} ${url}`);
+        this.name = "ReadOnlyError";
+    }
+}
+
 export class HttpClient {
     private axios: AxiosInstance;
 
-    constructor(baseURL: string, token: string, axiosInstance?: AxiosInstance) {
+    constructor(baseURL: string, token: string, axiosInstance?: AxiosInstance, options: HttpClientOptions = {}) {
         this.axios = axiosInstance ?? axios.create({
             // baseURL specified in implementing config
             // ex: http://127.0.0.1:8000/api/
@@ -39,6 +54,16 @@ export class HttpClient {
         });
 
 
+
+        if (options.readOnly) {
+            this.axios.interceptors.request.use(config => {
+                const method = (config.method ?? "get").toLowerCase();
+                const url = (config.url ?? "").split("?")[0] ?? "";
+                if (method !== "get" && !(method === "post" && READ_ONLY_POSTS.some(r => r.test(url))))
+                    throw new ReadOnlyError(method, config.url ?? "");
+                return config;
+            });
+        }
 
         if (!axiosInstance) {
             this.axios.interceptors.response.use(

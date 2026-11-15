@@ -26,6 +26,10 @@ export interface Project {
     role_id?: string;
     version?: string;
     discovery_thread_id?: string;
+    /** The project's open #community-vetting post (Queued or Vetting now); managed by the vetting cycle. */
+    vetting_thread_id?: string | null;
+    /** When community_vetted last changed. */
+    community_vetted_at?: string | null;
 }
 
 export interface ProjectWithRelations extends Project {
