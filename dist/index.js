@@ -21,4 +21,5 @@ __exportStar(require("./maps"), exports);
 __exportStar(require("./mapInstances"), exports);
 __exportStar(require("./users"), exports);
 __exportStar(require("./projects"), exports);
+__exportStar(require("./huntSuggestions"), exports);
 //# sourceMappingURL=index.js.map

@@ -18,6 +18,7 @@ import { TagRequestsApi } from "./tagRequests/index.js";
 import { AnnouncementConnectionsApi } from "./announcementConnections/index.js";
 import { InviteChecksApi } from "./inviteChecks/index.js";
 import { VettingApi } from "./vetting/index.js";
+import { HuntSuggestionsApi } from "./huntSuggestions/index.js";
 
 export class CrossroadsApiClient {
     public maps: MapsApi;
@@ -36,6 +37,7 @@ export class CrossroadsApiClient {
     public announcementConnections: AnnouncementConnectionsApi;
     public inviteChecks: InviteChecksApi;
     public vetting: VettingApi;
+    public huntSuggestions: HuntSuggestionsApi;
 
     /** options.readOnly: every request except GET (and the read-only POST searches) is refused; for dry runs. */
     constructor(baseURL: string, token: string, options: HttpClientOptions = {}) {
@@ -57,6 +59,7 @@ export class CrossroadsApiClient {
         this.announcementConnections = new AnnouncementConnectionsApi(http);
         this.inviteChecks = new InviteChecksApi(http);
         this.vetting = new VettingApi(http);
+        this.huntSuggestions = new HuntSuggestionsApi(http);
     }
 
     async setProjectStaffByDiscordId(

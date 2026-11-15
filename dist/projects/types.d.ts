@@ -29,6 +29,10 @@ export interface Project {
     vetting_thread_id?: string | null;
     /** When community_vetted last changed. */
     community_vetted_at?: string | null;
+    /** crossroads_users.id of whoever suggested this Hunt project (XP when selected / passed); set by POST /hunt-suggestions. */
+    suggested_by_user_id?: number | null;
+    /** The #project-hunt-suggestions post it was approved from. */
+    suggestion_thread_id?: string | null;
 }
 export interface ProjectWithRelations extends Project {
     links: ProjectLink[];

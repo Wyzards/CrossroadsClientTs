@@ -16,6 +16,7 @@ import { TagRequestsApi } from "./tagRequests/index.js";
 import { AnnouncementConnectionsApi } from "./announcementConnections/index.js";
 import { InviteChecksApi } from "./inviteChecks/index.js";
 import { VettingApi } from "./vetting/index.js";
+import { HuntSuggestionsApi } from "./huntSuggestions/index.js";
 export declare class CrossroadsApiClient {
     maps: MapsApi;
     mapInstances: MapInstancesApi;
@@ -33,6 +34,7 @@ export declare class CrossroadsApiClient {
     announcementConnections: AnnouncementConnectionsApi;
     inviteChecks: InviteChecksApi;
     vetting: VettingApi;
+    huntSuggestions: HuntSuggestionsApi;
     /** options.readOnly: every request except GET (and the read-only POST searches) is refused; for dry runs. */
     constructor(baseURL: string, token: string, options?: HttpClientOptions);
     setProjectStaffByDiscordId(projectId: number, discordId: string, rank: ProjectStaffRank): Promise<ProjectStaff>;
