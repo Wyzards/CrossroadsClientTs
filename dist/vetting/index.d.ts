@@ -1,6 +1,6 @@
 import { HttpClient } from "../httpClient.js";
 import { Project } from "../projects/types.js";
-import { CloseCyclePayload, CurrentVettingProject, CycleWriteOnce, Lease, VettingCycle, VettingSettings, VettingSettingsUpdate, VettingStepName, VettingStepStatus } from "./types.js";
+import { CloseCyclePayload, CurrentVettingProject, CycleWriteOnce, Lease, VettingCycle, VettingSettings, VettingSettingsUpdate, VettingStepName, VettingStepStatus, StartFrom } from "./types.js";
 /**
  * Community Vetting cycle. Every write takes the lease token (409 unless it is the current lease);
  * the exceptions are updateSettings (the kill switch) and the lease calls.
@@ -26,7 +26,7 @@ export declare class VettingApi {
         next_attempt_at?: string | null;
     }): Promise<VettingCycle>;
     closeCycle(leaseToken: string, cycleId: number, payload: CloseCyclePayload): Promise<VettingCycle>;
-    startCycle(leaseToken: string, cycleId: number, projectId: number, from: "vetting_queue"): Promise<VettingCycle>;
+    startCycle(leaseToken: string, cycleId: number, projectId: number, from: StartFrom): Promise<VettingCycle>;
     deleteCycle(leaseToken: string, cycleId: number): Promise<void>;
     /** Compare-and-set; 409 (ApiError.data.vetting_thread_id = current) when `expected` is stale. */
     setThread(leaseToken: string, projectId: number, threadId: string | null, expected: string | null): Promise<{

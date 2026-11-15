@@ -2,7 +2,7 @@ import { HttpClient } from "../httpClient.js";
 import { Project } from "../projects/types.js";
 import {
     CloseCyclePayload, CurrentVettingProject, CycleWriteOnce, Lease, VettingCycle,
-    VettingSettings, VettingSettingsUpdate, VettingStepName, VettingStepStatus,
+    VettingSettings, VettingSettingsUpdate, VettingStepName, VettingStepStatus, StartFrom,
 } from "./types.js";
 
 /**
@@ -64,7 +64,7 @@ export class VettingApi {
         return this.http.post<VettingCycle>(`/vetting/cycles/${cycleId}/close`, { ...payload, lease_token: leaseToken });
     }
 
-    startCycle(leaseToken: string, cycleId: number, projectId: number, from: "vetting_queue"): Promise<VettingCycle> {
+    startCycle(leaseToken: string, cycleId: number, projectId: number, from: StartFrom): Promise<VettingCycle> {
         return this.http.post<VettingCycle>(`/vetting/cycles/${cycleId}/start`, { project_id: projectId, from, lease_token: leaseToken });
     }
 

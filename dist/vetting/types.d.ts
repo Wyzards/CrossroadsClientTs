@@ -37,6 +37,19 @@ export interface VotesRecord {
     down: string[];
     both: string[];
 }
+/** One option of the Thursday poll. answer_id is the poll answer's id (assigned 1..n in order). */
+export interface PollCandidate {
+    project_id: number;
+    source: "queue" | "hunt";
+    /** When it started waiting: the vetting queue, or the Hunt queue for source hunt. */
+    waiting_since: string | null;
+    answer_id: number | null;
+}
+export interface PollResult {
+    project_id: number;
+    votes: number;
+    voter_ids: string[];
+}
 export interface VettingCycle {
     id: number;
     /** ET date (YYYY-MM-DD) of the Friday close. */
@@ -55,6 +68,12 @@ export interface VettingCycle {
     started_from: string | null;
     started_at: string | null;
     announce_message_id: string | null;
+    /** Frozen by choose: the options, in poll order. */
+    candidates: PollCandidate[] | null;
+    poll_thread_id: string | null;
+    poll_message_id: string | null;
+    /** Frozen by poll_close. */
+    poll_results: PollResult[] | null;
     steps: VettingStep[];
 }
 /** Fields of a cycle that can be written once (null -> set, same -> no-op, different -> 409). */
@@ -62,7 +81,13 @@ export interface CycleWriteOnce {
     chosen_project_id?: number | null;
     chosen_by?: ChosenBy | null;
     announce_message_id?: string | null;
+    poll_thread_id?: string | null;
+    poll_message_id?: string | null;
+    candidates?: PollCandidate[] | null;
+    poll_results?: PollResult[] | null;
 }
+/** Where a project starts vetting from: the vetting queue, or (approving it) the Hunt queue. */
+export type StartFrom = "vetting_queue" | "project_hunt_queue";
 export interface CloseCyclePayload {
     project_id: number;
     thread_id: string;
