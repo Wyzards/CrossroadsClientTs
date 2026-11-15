@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HttpClient = exports.ReadOnlyError = void 0;
+exports.HttpClient = exports.ReadOnlyError = exports.DEFAULT_TIMEOUT_MS = void 0;
 exports.createMockAxios = createMockAxios;
 const axios_1 = __importDefault(require("axios"));
 const error_1 = require("./error");
@@ -20,6 +20,7 @@ function createMockAxios() {
 }
 /** POSTs that only read; allowed on a readOnly client. */
 const READ_ONLY_POSTS = [/\/projects\/search$/, /\/project-lists\/\d+\/evaluate-tags-bulk$/, /\/project-lists\/match$/];
+exports.DEFAULT_TIMEOUT_MS = 30000;
 class ReadOnlyError extends Error {
     constructor(method, url) {
         super(`readOnly client refused ${method.toUpperCase()} ${url}`);
@@ -33,6 +34,7 @@ class HttpClient {
             // baseURL specified in implementing config
             // ex: http://127.0.0.1:8000/api/
             baseURL,
+            timeout: options.timeoutMs ?? exports.DEFAULT_TIMEOUT_MS,
             headers: {
                 'Authorization': `Bearer ${token}`,
             },

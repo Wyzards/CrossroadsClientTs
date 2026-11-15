@@ -13,7 +13,10 @@ export interface HttpResponse<T> {
 export interface HttpClientOptions {
     /** Refuse every request that could write (dry runs). */
     readOnly?: boolean;
+    /** Request timeout in milliseconds (default 30000; 0 = none). A hung request must fail, not stall its caller. Ignored with a custom axios instance. */
+    timeoutMs?: number;
 }
+export declare const DEFAULT_TIMEOUT_MS = 30000;
 export declare class ReadOnlyError extends Error {
     constructor(method: string, url: string);
 }

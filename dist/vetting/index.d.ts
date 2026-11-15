@@ -1,6 +1,6 @@
 import { HttpClient } from "../httpClient.js";
 import { Project } from "../projects/types.js";
-import { CloseCyclePayload, CurrentVettingProject, CycleWriteOnce, Lease, VettingCycle, VettingSettings, VettingSettingsUpdate, VettingStepName, VettingStepStatus, StartFrom } from "./types.js";
+import { CloseCyclePayload, CurrentVettingProject, CycleWriteOnce, Lease, VettingCycle, VettingSettings, VettingSettingsUpdate, VettingStepName, VettingStepStatus, StartFrom, TestCleanupPayload, TestCleanupResult } from "./types.js";
 /**
  * Community Vetting cycle. Every write takes the lease token (409 unless it is the current lease);
  * the exceptions are updateSettings (the kill switch) and the lease calls.
@@ -33,6 +33,8 @@ export declare class VettingApi {
         id: number;
         vetting_thread_id: string | null;
     }>;
+    /** Removes what a rehearsal created: context-keyed XP of one user and game nobody attended. Lease-fenced. */
+    testCleanup(leaseToken: string, payload: TestCleanupPayload): Promise<TestCleanupResult>;
     cancel(leaseToken: string, projectId: number, to: "vetting_queue" | "unvetted"): Promise<Project>;
 }
 export * from "./types.js";

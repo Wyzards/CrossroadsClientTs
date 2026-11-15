@@ -45,4 +45,6 @@ export interface SystemChannels {
     hunt_suggestions_channel_id?: string | null;
     vetting_forum_id?: string | null;
     announcements_channel_id?: string | null;
+    /** The voice or stage channel of the Saturday game night event. */
+    gamenight_channel_id?: string | null;
 }

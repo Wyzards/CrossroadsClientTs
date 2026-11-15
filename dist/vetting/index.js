@@ -72,6 +72,10 @@ class VettingApi {
     setThread(leaseToken, projectId, threadId, expected) {
         return this.http.put(`/vetting/projects/${projectId}/thread`, { thread_id: threadId, expected, lease_token: leaseToken });
     }
+    /** Removes what a rehearsal created: context-keyed XP of one user and game nobody attended. Lease-fenced. */
+    testCleanup(leaseToken, payload) {
+        return this.http.post("/vetting/test-cleanup", { ...payload, lease_token: leaseToken });
+    }
     cancel(leaseToken, projectId, to) {
         return this.http.post("/vetting/cancel", { project_id: projectId, to, lease_token: leaseToken });
     }

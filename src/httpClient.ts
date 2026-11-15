@@ -28,10 +28,14 @@ export interface HttpResponse<T> {
 export interface HttpClientOptions {
     /** Refuse every request that could write (dry runs). */
     readOnly?: boolean;
+    /** Request timeout in milliseconds (default 30000; 0 = none). A hung request must fail, not stall its caller. Ignored with a custom axios instance. */
+    timeoutMs?: number;
 }
 
 /** POSTs that only read; allowed on a readOnly client. */
 const READ_ONLY_POSTS = [/\/projects\/search$/, /\/project-lists\/\d+\/evaluate-tags-bulk$/, /\/project-lists\/match$/];
+
+export const DEFAULT_TIMEOUT_MS = 30_000;
 
 export class ReadOnlyError extends Error {
     constructor(method: string, url: string) {
@@ -48,6 +52,7 @@ export class HttpClient {
             // baseURL specified in implementing config
             // ex: http://127.0.0.1:8000/api/
             baseURL,
+            timeout: options.timeoutMs ?? DEFAULT_TIMEOUT_MS,
             headers: {
                 'Authorization': `Bearer ${token}`,
             },

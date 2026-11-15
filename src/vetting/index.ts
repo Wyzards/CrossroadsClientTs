@@ -2,7 +2,7 @@ import { HttpClient } from "../httpClient.js";
 import { Project } from "../projects/types.js";
 import {
     CloseCyclePayload, CurrentVettingProject, CycleWriteOnce, Lease, VettingCycle,
-    VettingSettings, VettingSettingsUpdate, VettingStepName, VettingStepStatus, StartFrom,
+    VettingSettings, VettingSettingsUpdate, VettingStepName, VettingStepStatus, StartFrom, TestCleanupPayload, TestCleanupResult,
 } from "./types.js";
 
 /**
@@ -75,6 +75,11 @@ export class VettingApi {
     /** Compare-and-set; 409 (ApiError.data.vetting_thread_id = current) when `expected` is stale. */
     setThread(leaseToken: string, projectId: number, threadId: string | null, expected: string | null): Promise<{ id: number, vetting_thread_id: string | null }> {
         return this.http.put(`/vetting/projects/${projectId}/thread`, { thread_id: threadId, expected, lease_token: leaseToken });
+    }
+
+    /** Removes what a rehearsal created: context-keyed XP of one user and game nobody attended. Lease-fenced. */
+    testCleanup(leaseToken: string, payload: TestCleanupPayload): Promise<TestCleanupResult> {
+        return this.http.post<TestCleanupResult>("/vetting/test-cleanup", { ...payload, lease_token: leaseToken });
     }
 
     cancel(leaseToken: string, projectId: number, to: "vetting_queue" | "unvetted"): Promise<Project> {

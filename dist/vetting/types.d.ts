@@ -74,6 +74,9 @@ export interface VettingCycle {
     poll_message_id: string | null;
     /** Frozen by poll_close. */
     poll_results: PollResult[] | null;
+    /** The Saturday scheduled event (step 6) and the game night gn_start opened. */
+    event_id: string | null;
+    game_night_id: number | null;
     steps: VettingStep[];
 }
 /** Fields of a cycle that can be written once (null -> set, same -> no-op, different -> 409). */
@@ -85,6 +88,8 @@ export interface CycleWriteOnce {
     poll_message_id?: string | null;
     candidates?: PollCandidate[] | null;
     poll_results?: PollResult[] | null;
+    event_id?: string | null;
+    game_night_id?: number | null;
 }
 /** Where a project starts vetting from: the vetting queue, or (approving it) the Hunt queue. */
 export type StartFrom = "vetting_queue" | "project_hunt_queue";
@@ -112,5 +117,19 @@ export interface MatchProjectPayload {
     accessibility?: string;
     project_stage?: string;
     tags?: string[];
+}
+/** What a rehearsal created and wants gone (VettingApi.testCleanup). */
+export interface TestCleanupPayload {
+    /** The user whose context-keyed XP events are removed (with `contexts`). */
+    discord_id?: string;
+    /** Exact "kind:id" contexts, or "kind:*" for every context of that kind. */
+    contexts?: string[];
+    /** Game nights nobody attended (others are kept). */
+    game_night_ids?: number[];
+}
+export interface TestCleanupResult {
+    xp_events_deleted: number;
+    game_nights_deleted: number;
+    game_nights_kept: number;
 }
 //# sourceMappingURL=types.d.ts.map
